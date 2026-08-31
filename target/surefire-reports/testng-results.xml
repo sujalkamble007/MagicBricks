@@ -1,93 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="12" passed="12" failed="0" skipped="0">
+<testng-results ignored="0" total="15" passed="15" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-08-31T22:46:25 IST" name="MagicBricks Automation Suite" finished-at="2026-08-31T22:49:55 IST" duration-ms="210641">
+  <suite started-at="2026-08-31T23:27:56 IST" name="MagicBricks Automation Suite" finished-at="2026-08-31T23:32:01 IST" duration-ms="245864">
     <groups>
       <group name="regression">
-        <method signature="HomePageTest.verifySearchTabsPresenceAndDefaultState()[pri:3, instance:com.magicbricks.tests.HomePageTest@25d250c6]" name="verifySearchTabsPresenceAndDefaultState" class="com.magicbricks.tests.HomePageTest"/>
-        <method signature="HomePageTest.verifySearchAutocompleteTriggers(java.lang.String,java.lang.String)[pri:4, instance:com.magicbricks.tests.HomePageTest@25d250c6]" name="verifySearchAutocompleteTriggers" class="com.magicbricks.tests.HomePageTest"/>
-        <method signature="HomePageTest.verifyTabSwitchingBuyRent()[pri:5, instance:com.magicbricks.tests.HomePageTest@25d250c6]" name="verifyTabSwitchingBuyRent" class="com.magicbricks.tests.HomePageTest"/>
-        <method signature="LoginTest.verifyValidMobileNumberEntry(java.lang.String,java.lang.String,java.lang.String)[pri:2, instance:com.magicbricks.tests.LoginTest@9353778]" name="verifyValidMobileNumberEntry" class="com.magicbricks.tests.LoginTest"/>
-        <method signature="LoginTest.verifyInvalidMobileNumberRejected(java.lang.String,java.lang.String,java.lang.String)[pri:3, instance:com.magicbricks.tests.LoginTest@9353778]" name="verifyInvalidMobileNumberRejected" class="com.magicbricks.tests.LoginTest"/>
+        <method signature="HomePageTest.verifySearchTabsPresenceAndDefaultState()[pri:3, instance:com.magicbricks.tests.HomePageTest@63a65a25]" name="verifySearchTabsPresenceAndDefaultState" class="com.magicbricks.tests.HomePageTest"/>
+        <method signature="HomePageTest.verifySearchAutocompleteTriggers(java.lang.String,java.lang.String)[pri:4, instance:com.magicbricks.tests.HomePageTest@63a65a25]" name="verifySearchAutocompleteTriggers" class="com.magicbricks.tests.HomePageTest"/>
+        <method signature="HomePageTest.verifyTabSwitchingBuyRent()[pri:5, instance:com.magicbricks.tests.HomePageTest@63a65a25]" name="verifyTabSwitchingBuyRent" class="com.magicbricks.tests.HomePageTest"/>
+        <method signature="HomePageTest.verifyMidPageSectionScrollAndContent()[pri:6, instance:com.magicbricks.tests.HomePageTest@63a65a25]" name="verifyMidPageSectionScrollAndContent" class="com.magicbricks.tests.HomePageTest"/>
+        <method signature="HomePageTest.verifyFooterSectionScrollAndLinks()[pri:7, instance:com.magicbricks.tests.HomePageTest@63a65a25]" name="verifyFooterSectionScrollAndLinks" class="com.magicbricks.tests.HomePageTest"/>
+        <method signature="HomePageTest.verifyScrollToTopBehavior()[pri:8, instance:com.magicbricks.tests.HomePageTest@63a65a25]" name="verifyScrollToTopBehavior" class="com.magicbricks.tests.HomePageTest"/>
+        <method signature="LoginTest.verifyValidMobileNumberEntry(java.lang.String,java.lang.String,java.lang.String)[pri:2, instance:com.magicbricks.tests.LoginTest@1700915]" name="verifyValidMobileNumberEntry" class="com.magicbricks.tests.LoginTest"/>
+        <method signature="LoginTest.verifyInvalidMobileNumberRejected(java.lang.String,java.lang.String,java.lang.String)[pri:3, instance:com.magicbricks.tests.LoginTest@1700915]" name="verifyInvalidMobileNumberRejected" class="com.magicbricks.tests.LoginTest"/>
       </group> <!-- regression -->
       <group name="smoke">
-        <method signature="HomePageTest.verifyHomePageTitle()[pri:1, instance:com.magicbricks.tests.HomePageTest@25d250c6]" name="verifyHomePageTitle" class="com.magicbricks.tests.HomePageTest"/>
-        <method signature="HomePageTest.verifyHeaderElementsVisibility()[pri:2, instance:com.magicbricks.tests.HomePageTest@25d250c6]" name="verifyHeaderElementsVisibility" class="com.magicbricks.tests.HomePageTest"/>
-        <method signature="LoginTest.verifyLoginDropdownOpens()[pri:1, instance:com.magicbricks.tests.LoginTest@9353778]" name="verifyLoginDropdownOpens" class="com.magicbricks.tests.LoginTest"/>
+        <method signature="HomePageTest.verifyHomePageTitle()[pri:1, instance:com.magicbricks.tests.HomePageTest@63a65a25]" name="verifyHomePageTitle" class="com.magicbricks.tests.HomePageTest"/>
+        <method signature="HomePageTest.verifyHeaderElementsVisibility()[pri:2, instance:com.magicbricks.tests.HomePageTest@63a65a25]" name="verifyHeaderElementsVisibility" class="com.magicbricks.tests.HomePageTest"/>
+        <method signature="LoginTest.verifyLoginDropdownOpens()[pri:1, instance:com.magicbricks.tests.LoginTest@1700915]" name="verifyLoginDropdownOpens" class="com.magicbricks.tests.LoginTest"/>
       </group> <!-- smoke -->
       <group name="login">
-        <method signature="LoginTest.verifyLoginDropdownOpens()[pri:1, instance:com.magicbricks.tests.LoginTest@9353778]" name="verifyLoginDropdownOpens" class="com.magicbricks.tests.LoginTest"/>
-        <method signature="LoginTest.verifyValidMobileNumberEntry(java.lang.String,java.lang.String,java.lang.String)[pri:2, instance:com.magicbricks.tests.LoginTest@9353778]" name="verifyValidMobileNumberEntry" class="com.magicbricks.tests.LoginTest"/>
-        <method signature="LoginTest.verifyInvalidMobileNumberRejected(java.lang.String,java.lang.String,java.lang.String)[pri:3, instance:com.magicbricks.tests.LoginTest@9353778]" name="verifyInvalidMobileNumberRejected" class="com.magicbricks.tests.LoginTest"/>
+        <method signature="LoginTest.verifyLoginDropdownOpens()[pri:1, instance:com.magicbricks.tests.LoginTest@1700915]" name="verifyLoginDropdownOpens" class="com.magicbricks.tests.LoginTest"/>
+        <method signature="LoginTest.verifyValidMobileNumberEntry(java.lang.String,java.lang.String,java.lang.String)[pri:2, instance:com.magicbricks.tests.LoginTest@1700915]" name="verifyValidMobileNumberEntry" class="com.magicbricks.tests.LoginTest"/>
+        <method signature="LoginTest.verifyInvalidMobileNumberRejected(java.lang.String,java.lang.String,java.lang.String)[pri:3, instance:com.magicbricks.tests.LoginTest@1700915]" name="verifyInvalidMobileNumberRejected" class="com.magicbricks.tests.LoginTest"/>
       </group> <!-- login -->
       <group name="homepage">
-        <method signature="HomePageTest.verifyHomePageTitle()[pri:1, instance:com.magicbricks.tests.HomePageTest@25d250c6]" name="verifyHomePageTitle" class="com.magicbricks.tests.HomePageTest"/>
-        <method signature="HomePageTest.verifyHeaderElementsVisibility()[pri:2, instance:com.magicbricks.tests.HomePageTest@25d250c6]" name="verifyHeaderElementsVisibility" class="com.magicbricks.tests.HomePageTest"/>
-        <method signature="HomePageTest.verifySearchTabsPresenceAndDefaultState()[pri:3, instance:com.magicbricks.tests.HomePageTest@25d250c6]" name="verifySearchTabsPresenceAndDefaultState" class="com.magicbricks.tests.HomePageTest"/>
-        <method signature="HomePageTest.verifySearchAutocompleteTriggers(java.lang.String,java.lang.String)[pri:4, instance:com.magicbricks.tests.HomePageTest@25d250c6]" name="verifySearchAutocompleteTriggers" class="com.magicbricks.tests.HomePageTest"/>
-        <method signature="HomePageTest.verifyTabSwitchingBuyRent()[pri:5, instance:com.magicbricks.tests.HomePageTest@25d250c6]" name="verifyTabSwitchingBuyRent" class="com.magicbricks.tests.HomePageTest"/>
+        <method signature="HomePageTest.verifyHomePageTitle()[pri:1, instance:com.magicbricks.tests.HomePageTest@63a65a25]" name="verifyHomePageTitle" class="com.magicbricks.tests.HomePageTest"/>
+        <method signature="HomePageTest.verifyHeaderElementsVisibility()[pri:2, instance:com.magicbricks.tests.HomePageTest@63a65a25]" name="verifyHeaderElementsVisibility" class="com.magicbricks.tests.HomePageTest"/>
+        <method signature="HomePageTest.verifySearchTabsPresenceAndDefaultState()[pri:3, instance:com.magicbricks.tests.HomePageTest@63a65a25]" name="verifySearchTabsPresenceAndDefaultState" class="com.magicbricks.tests.HomePageTest"/>
+        <method signature="HomePageTest.verifySearchAutocompleteTriggers(java.lang.String,java.lang.String)[pri:4, instance:com.magicbricks.tests.HomePageTest@63a65a25]" name="verifySearchAutocompleteTriggers" class="com.magicbricks.tests.HomePageTest"/>
+        <method signature="HomePageTest.verifyTabSwitchingBuyRent()[pri:5, instance:com.magicbricks.tests.HomePageTest@63a65a25]" name="verifyTabSwitchingBuyRent" class="com.magicbricks.tests.HomePageTest"/>
+        <method signature="HomePageTest.verifyMidPageSectionScrollAndContent()[pri:6, instance:com.magicbricks.tests.HomePageTest@63a65a25]" name="verifyMidPageSectionScrollAndContent" class="com.magicbricks.tests.HomePageTest"/>
+        <method signature="HomePageTest.verifyFooterSectionScrollAndLinks()[pri:7, instance:com.magicbricks.tests.HomePageTest@63a65a25]" name="verifyFooterSectionScrollAndLinks" class="com.magicbricks.tests.HomePageTest"/>
+        <method signature="HomePageTest.verifyScrollToTopBehavior()[pri:8, instance:com.magicbricks.tests.HomePageTest@63a65a25]" name="verifyScrollToTopBehavior" class="com.magicbricks.tests.HomePageTest"/>
       </group> <!-- homepage -->
     </groups>
-    <test started-at="2026-08-31T22:46:25 IST" name="Home Page Module Tests" finished-at="2026-08-31T22:47:23 IST" duration-ms="58400">
+    <test started-at="2026-08-31T23:27:56 IST" name="Home Page Module Tests" finished-at="2026-08-31T23:29:27 IST" duration-ms="91374">
       <class name="com.magicbricks.tests.HomePageTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:46:25 IST" name="setUp" finished-at="2026-08-31T22:46:35 IST" duration-ms="10210" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:27:56 IST" name="setUp" finished-at="2026-08-31T23:28:05 IST" duration-ms="9784" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initPage()[pri:0, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:46:35 IST" name="initPage" finished-at="2026-08-31T22:46:35 IST" duration-ms="55" status="PASS">
+        <test-method is-config="true" signature="initPage()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:28:05 IST" name="initPage" finished-at="2026-08-31T23:28:06 IST" duration-ms="97" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initPage -->
-        <test-method signature="verifyHomePageTitle()[pri:1, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:46:35 IST" name="verifyHomePageTitle" description="TC_HP_001: Verify home page title contains MagicBricks" finished-at="2026-08-31T22:46:35 IST" duration-ms="14" status="PASS">
+        <test-method signature="verifyHomePageTitle()[pri:1, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:28:06 IST" name="verifyHomePageTitle" description="TC_HP_001: Verify home page title contains MagicBricks" finished-at="2026-08-31T23:28:06 IST" duration-ms="24" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- verifyHomePageTitle -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:46:35 IST" name="tearDown" finished-at="2026-08-31T22:46:35 IST" duration-ms="507" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:28:06 IST" name="tearDown" finished-at="2026-08-31T23:28:06 IST" duration-ms="261" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:46:35 IST" name="setUp" finished-at="2026-08-31T22:46:40 IST" duration-ms="4732" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:28:06 IST" name="setUp" finished-at="2026-08-31T23:28:10 IST" duration-ms="4287" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initPage()[pri:0, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:46:40 IST" name="initPage" finished-at="2026-08-31T22:46:40 IST" duration-ms="7" status="PASS">
+        <test-method is-config="true" signature="initPage()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:28:10 IST" name="initPage" finished-at="2026-08-31T23:28:10 IST" duration-ms="6" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initPage -->
-        <test-method signature="verifyHeaderElementsVisibility()[pri:2, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:46:40 IST" name="verifyHeaderElementsVisibility" description="TC_HP_002: Verify header elements (logo, login, post property) are visible" finished-at="2026-08-31T22:46:43 IST" duration-ms="2920" status="PASS">
+        <test-method signature="verifyHeaderElementsVisibility()[pri:2, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:28:10 IST" name="verifyHeaderElementsVisibility" description="TC_HP_002: Verify header elements (logo, login, post property, city) are visible" finished-at="2026-08-31T23:28:13 IST" duration-ms="2968" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- verifyHeaderElementsVisibility -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:46:43 IST" name="tearDown" finished-at="2026-08-31T22:46:43 IST" duration-ms="195" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:28:13 IST" name="tearDown" finished-at="2026-08-31T23:28:13 IST" duration-ms="336" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:46:43 IST" name="setUp" finished-at="2026-08-31T22:46:48 IST" duration-ms="4244" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:28:13 IST" name="setUp" finished-at="2026-08-31T23:28:18 IST" duration-ms="4584" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initPage()[pri:0, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:46:48 IST" name="initPage" finished-at="2026-08-31T22:46:48 IST" duration-ms="8" status="PASS">
+        <test-method is-config="true" signature="initPage()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:28:18 IST" name="initPage" finished-at="2026-08-31T23:28:18 IST" duration-ms="7" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initPage -->
-        <test-method signature="verifySearchTabsPresenceAndDefaultState()[pri:3, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:46:48 IST" name="verifySearchTabsPresenceAndDefaultState" description="TC_HP_003: Verify search tabs presence and Buy is default active" finished-at="2026-08-31T22:46:50 IST" duration-ms="2081" status="PASS">
+        <test-method signature="verifySearchTabsPresenceAndDefaultState()[pri:3, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:28:18 IST" name="verifySearchTabsPresenceAndDefaultState" description="TC_HP_003: Verify search tabs presence and Buy is default active" finished-at="2026-08-31T23:28:20 IST" duration-ms="2249" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- verifySearchTabsPresenceAndDefaultState -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:46:50 IST" name="tearDown" finished-at="2026-08-31T22:46:50 IST" duration-ms="261" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:28:20 IST" name="tearDown" finished-at="2026-08-31T23:28:21 IST" duration-ms="1134" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:46:51 IST" name="setUp" finished-at="2026-08-31T22:46:55 IST" duration-ms="3986" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:28:23 IST" name="setUp" finished-at="2026-08-31T23:28:29 IST" duration-ms="5928" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initPage()[pri:0, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:46:55 IST" name="initPage" finished-at="2026-08-31T22:46:55 IST" duration-ms="6" status="PASS">
+        <test-method is-config="true" signature="initPage()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:28:29 IST" name="initPage" finished-at="2026-08-31T23:28:29 IST" duration-ms="8" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initPage -->
-        <test-method signature="verifySearchAutocompleteTriggers(java.lang.String,java.lang.String)[pri:4, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:46:55 IST" name="verifySearchAutocompleteTriggers" description="TC_HP_004: Verify autocomplete suggestions appear when typing in search" data-provider="searchLocalitiesData" finished-at="2026-08-31T22:46:59 IST" duration-ms="3957" status="PASS">
+        <test-method signature="verifySearchAutocompleteTriggers(java.lang.String,java.lang.String)[pri:4, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:28:29 IST" name="verifySearchAutocompleteTriggers" description="TC_HP_004: Verify autocomplete suggestions appear when typing in search" data-provider="searchLocalitiesData" finished-at="2026-08-31T23:28:33 IST" duration-ms="4096" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -103,19 +109,19 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- verifySearchAutocompleteTriggers -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:46:59 IST" name="tearDown" finished-at="2026-08-31T22:46:59 IST" duration-ms="213" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:28:33 IST" name="tearDown" finished-at="2026-08-31T23:28:33 IST" duration-ms="389" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:46:59 IST" name="setUp" finished-at="2026-08-31T22:47:03 IST" duration-ms="3839" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:28:33 IST" name="setUp" finished-at="2026-08-31T23:28:38 IST" duration-ms="4622" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initPage()[pri:0, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:47:03 IST" name="initPage" finished-at="2026-08-31T22:47:03 IST" duration-ms="2" status="PASS">
+        <test-method is-config="true" signature="initPage()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:28:38 IST" name="initPage" finished-at="2026-08-31T23:28:38 IST" duration-ms="14" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initPage -->
-        <test-method signature="verifySearchAutocompleteTriggers(java.lang.String,java.lang.String)[pri:4, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:47:03 IST" name="verifySearchAutocompleteTriggers" description="TC_HP_004: Verify autocomplete suggestions appear when typing in search" data-provider="searchLocalitiesData" finished-at="2026-08-31T22:47:06 IST" duration-ms="3662" status="PASS">
+        <test-method signature="verifySearchAutocompleteTriggers(java.lang.String,java.lang.String)[pri:4, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:28:38 IST" name="verifySearchAutocompleteTriggers" description="TC_HP_004: Verify autocomplete suggestions appear when typing in search" data-provider="searchLocalitiesData" finished-at="2026-08-31T23:28:41 IST" duration-ms="3719" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -131,19 +137,19 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- verifySearchAutocompleteTriggers -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:47:06 IST" name="tearDown" finished-at="2026-08-31T22:47:07 IST" duration-ms="258" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:28:41 IST" name="tearDown" finished-at="2026-08-31T23:28:42 IST" duration-ms="321" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:47:07 IST" name="setUp" finished-at="2026-08-31T22:47:11 IST" duration-ms="4182" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:28:42 IST" name="setUp" finished-at="2026-08-31T23:28:47 IST" duration-ms="5589" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initPage()[pri:0, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:47:11 IST" name="initPage" finished-at="2026-08-31T22:47:11 IST" duration-ms="4" status="PASS">
+        <test-method is-config="true" signature="initPage()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:28:47 IST" name="initPage" finished-at="2026-08-31T23:28:47 IST" duration-ms="44" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initPage -->
-        <test-method signature="verifySearchAutocompleteTriggers(java.lang.String,java.lang.String)[pri:4, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:47:11 IST" name="verifySearchAutocompleteTriggers" description="TC_HP_004: Verify autocomplete suggestions appear when typing in search" data-provider="searchLocalitiesData" finished-at="2026-08-31T22:47:14 IST" duration-ms="3438" status="PASS">
+        <test-method signature="verifySearchAutocompleteTriggers(java.lang.String,java.lang.String)[pri:4, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:28:47 IST" name="verifySearchAutocompleteTriggers" description="TC_HP_004: Verify autocomplete suggestions appear when typing in search" data-provider="searchLocalitiesData" finished-at="2026-08-31T23:28:52 IST" duration-ms="4366" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -159,55 +165,103 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- verifySearchAutocompleteTriggers -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:47:14 IST" name="tearDown" finished-at="2026-08-31T22:47:15 IST" duration-ms="304" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:28:52 IST" name="tearDown" finished-at="2026-08-31T23:28:52 IST" duration-ms="302" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:47:15 IST" name="setUp" finished-at="2026-08-31T22:47:19 IST" duration-ms="3888" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:28:52 IST" name="setUp" finished-at="2026-08-31T23:29:00 IST" duration-ms="7515" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initPage()[pri:0, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:47:19 IST" name="initPage" finished-at="2026-08-31T22:47:19 IST" duration-ms="4" status="PASS">
+        <test-method is-config="true" signature="initPage()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:29:00 IST" name="initPage" finished-at="2026-08-31T23:29:00 IST" duration-ms="10" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initPage -->
-        <test-method signature="verifyTabSwitchingBuyRent()[pri:5, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:47:19 IST" name="verifyTabSwitchingBuyRent" description="TC_HP_005: Verify Buy/Rent tab switching toggles active state" finished-at="2026-08-31T22:47:23 IST" duration-ms="4098" status="PASS">
+        <test-method signature="verifyTabSwitchingBuyRent()[pri:5, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:29:00 IST" name="verifyTabSwitchingBuyRent" description="TC_HP_005: Verify Buy/Rent tab switching toggles active state" finished-at="2026-08-31T23:29:04 IST" duration-ms="4455" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- verifyTabSwitchingBuyRent -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.HomePageTest@25d250c6]" started-at="2026-08-31T22:47:23 IST" name="tearDown" finished-at="2026-08-31T22:47:23 IST" duration-ms="238" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:29:04 IST" name="tearDown" finished-at="2026-08-31T23:29:04 IST" duration-ms="256" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:29:04 IST" name="setUp" finished-at="2026-08-31T23:29:11 IST" duration-ms="6529" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method is-config="true" signature="initPage()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:29:11 IST" name="initPage" finished-at="2026-08-31T23:29:11 IST" duration-ms="6" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- initPage -->
+        <test-method signature="verifyMidPageSectionScrollAndContent()[pri:6, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:29:11 IST" name="verifyMidPageSectionScrollAndContent" description="TC_HP_006: Verify scroll to mid-page and validate section container and heading locators" finished-at="2026-08-31T23:29:13 IST" duration-ms="2106" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyMidPageSectionScrollAndContent -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:29:13 IST" name="tearDown" finished-at="2026-08-31T23:29:13 IST" duration-ms="281" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:29:13 IST" name="setUp" finished-at="2026-08-31T23:29:17 IST" duration-ms="3774" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method is-config="true" signature="initPage()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:29:17 IST" name="initPage" finished-at="2026-08-31T23:29:17 IST" duration-ms="13" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- initPage -->
+        <test-method signature="verifyFooterSectionScrollAndLinks()[pri:7, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:29:17 IST" name="verifyFooterSectionScrollAndLinks" description="TC_HP_007: Verify scroll to bottom and validate footer container and link locators" finished-at="2026-08-31T23:29:20 IST" duration-ms="2536" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyFooterSectionScrollAndLinks -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:29:20 IST" name="tearDown" finished-at="2026-08-31T23:29:20 IST" duration-ms="422" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:29:20 IST" name="setUp" finished-at="2026-08-31T23:29:24 IST" duration-ms="3670" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method is-config="true" signature="initPage()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:29:24 IST" name="initPage" finished-at="2026-08-31T23:29:24 IST" duration-ms="3" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- initPage -->
+        <test-method signature="verifyScrollToTopBehavior()[pri:8, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:29:24 IST" name="verifyScrollToTopBehavior" description="TC_HP_008: Verify smooth scroll to bottom and return to top" finished-at="2026-08-31T23:29:27 IST" duration-ms="3034" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyScrollToTopBehavior -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.HomePageTest@63a65a25]" started-at="2026-08-31T23:29:27 IST" name="tearDown" finished-at="2026-08-31T23:29:27 IST" duration-ms="291" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
       </class> <!-- com.magicbricks.tests.HomePageTest -->
     </test> <!-- Home Page Module Tests -->
-    <test started-at="2026-08-31T22:47:23 IST" name="Login Module Tests" finished-at="2026-08-31T22:49:55 IST" duration-ms="152176">
+    <test started-at="2026-08-31T23:29:27 IST" name="Login Module Tests" finished-at="2026-08-31T23:32:01 IST" duration-ms="154342">
       <class name="com.magicbricks.tests.LoginTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.LoginTest@9353778]" started-at="2026-08-31T22:47:23 IST" name="setUp" finished-at="2026-08-31T22:47:28 IST" duration-ms="4601" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.LoginTest@1700915]" started-at="2026-08-31T23:29:27 IST" name="setUp" finished-at="2026-08-31T23:29:31 IST" duration-ms="3644" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initPages()[pri:0, instance:com.magicbricks.tests.LoginTest@9353778]" started-at="2026-08-31T22:47:28 IST" name="initPages" finished-at="2026-08-31T22:47:28 IST" duration-ms="62" status="PASS">
+        <test-method is-config="true" signature="initPages()[pri:0, instance:com.magicbricks.tests.LoginTest@1700915]" started-at="2026-08-31T23:29:31 IST" name="initPages" finished-at="2026-08-31T23:29:31 IST" duration-ms="5" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initPages -->
-        <test-method signature="verifyLoginDropdownOpens()[pri:1, instance:com.magicbricks.tests.LoginTest@9353778]" started-at="2026-08-31T22:47:28 IST" name="verifyLoginDropdownOpens" description="TC_LG_001: Verify login dropdown opens and Login/Sign Up CTA is visible" finished-at="2026-08-31T22:47:29 IST" duration-ms="1367" status="PASS">
+        <test-method signature="verifyLoginDropdownOpens()[pri:1, instance:com.magicbricks.tests.LoginTest@1700915]" started-at="2026-08-31T23:29:31 IST" name="verifyLoginDropdownOpens" description="TC_LG_001: Verify login dropdown opens and Login/Sign Up CTA is visible" finished-at="2026-08-31T23:29:32 IST" duration-ms="882" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- verifyLoginDropdownOpens -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.LoginTest@9353778]" started-at="2026-08-31T22:47:29 IST" name="tearDown" finished-at="2026-08-31T22:47:29 IST" duration-ms="300" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.LoginTest@1700915]" started-at="2026-08-31T23:29:32 IST" name="tearDown" finished-at="2026-08-31T23:29:32 IST" duration-ms="197" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.LoginTest@9353778]" started-at="2026-08-31T22:47:29 IST" name="setUp" finished-at="2026-08-31T22:47:34 IST" duration-ms="4327" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.LoginTest@1700915]" started-at="2026-08-31T23:29:32 IST" name="setUp" finished-at="2026-08-31T23:29:36 IST" duration-ms="3716" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initPages()[pri:0, instance:com.magicbricks.tests.LoginTest@9353778]" started-at="2026-08-31T22:47:34 IST" name="initPages" finished-at="2026-08-31T22:47:34 IST" duration-ms="5" status="PASS">
+        <test-method is-config="true" signature="initPages()[pri:0, instance:com.magicbricks.tests.LoginTest@1700915]" started-at="2026-08-31T23:29:36 IST" name="initPages" finished-at="2026-08-31T23:29:36 IST" duration-ms="5" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initPages -->
-        <test-method signature="verifyValidMobileNumberEntry(java.lang.String,java.lang.String,java.lang.String)[pri:2, instance:com.magicbricks.tests.LoginTest@9353778]" started-at="2026-08-31T22:47:34 IST" name="verifyValidMobileNumberEntry" description="TC_LG_002: Verify valid 10-digit mobile number entry and OTP prompt on login page" data-provider="validLoginMobileData" finished-at="2026-08-31T22:48:01 IST" duration-ms="27224" status="PASS">
+        <test-method signature="verifyValidMobileNumberEntry(java.lang.String,java.lang.String,java.lang.String)[pri:2, instance:com.magicbricks.tests.LoginTest@1700915]" started-at="2026-08-31T23:29:36 IST" name="verifyValidMobileNumberEntry" description="TC_LG_002: Verify valid 10-digit mobile number entry and OTP prompt on login page" data-provider="validLoginMobileData" finished-at="2026-08-31T23:29:53 IST" duration-ms="17710" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -228,19 +282,19 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- verifyValidMobileNumberEntry -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.LoginTest@9353778]" started-at="2026-08-31T22:48:01 IST" name="tearDown" finished-at="2026-08-31T22:48:04 IST" duration-ms="3282" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.LoginTest@1700915]" started-at="2026-08-31T23:29:53 IST" name="tearDown" finished-at="2026-08-31T23:30:09 IST" duration-ms="15500" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.LoginTest@9353778]" started-at="2026-08-31T22:48:04 IST" name="setUp" finished-at="2026-08-31T22:48:09 IST" duration-ms="4878" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.LoginTest@1700915]" started-at="2026-08-31T23:30:09 IST" name="setUp" finished-at="2026-08-31T23:30:16 IST" duration-ms="6675" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initPages()[pri:0, instance:com.magicbricks.tests.LoginTest@9353778]" started-at="2026-08-31T22:48:09 IST" name="initPages" finished-at="2026-08-31T22:48:09 IST" duration-ms="2" status="PASS">
+        <test-method is-config="true" signature="initPages()[pri:0, instance:com.magicbricks.tests.LoginTest@1700915]" started-at="2026-08-31T23:30:16 IST" name="initPages" finished-at="2026-08-31T23:30:16 IST" duration-ms="22" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initPages -->
-        <test-method signature="verifyInvalidMobileNumberRejected(java.lang.String,java.lang.String,java.lang.String)[pri:3, instance:com.magicbricks.tests.LoginTest@9353778]" started-at="2026-08-31T22:48:09 IST" name="verifyInvalidMobileNumberRejected" description="TC_LG_003: Verify invalid mobile/email input is rejected with error" data-provider="invalidLoginMobileData" finished-at="2026-08-31T22:48:35 IST" duration-ms="26248" status="PASS">
+        <test-method signature="verifyInvalidMobileNumberRejected(java.lang.String,java.lang.String,java.lang.String)[pri:3, instance:com.magicbricks.tests.LoginTest@1700915]" started-at="2026-08-31T23:30:16 IST" name="verifyInvalidMobileNumberRejected" description="TC_LG_003: Verify invalid mobile/email input is rejected with error" data-provider="invalidLoginMobileData" finished-at="2026-08-31T23:30:32 IST" duration-ms="16041" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -261,19 +315,19 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- verifyInvalidMobileNumberRejected -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.LoginTest@9353778]" started-at="2026-08-31T22:48:35 IST" name="tearDown" finished-at="2026-08-31T22:48:41 IST" duration-ms="5497" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.LoginTest@1700915]" started-at="2026-08-31T23:30:32 IST" name="tearDown" finished-at="2026-08-31T23:30:47 IST" duration-ms="14844" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.LoginTest@9353778]" started-at="2026-08-31T22:48:41 IST" name="setUp" finished-at="2026-08-31T22:48:46 IST" duration-ms="4958" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.LoginTest@1700915]" started-at="2026-08-31T23:30:47 IST" name="setUp" finished-at="2026-08-31T23:30:51 IST" duration-ms="4620" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initPages()[pri:0, instance:com.magicbricks.tests.LoginTest@9353778]" started-at="2026-08-31T22:48:46 IST" name="initPages" finished-at="2026-08-31T22:48:46 IST" duration-ms="10" status="PASS">
+        <test-method is-config="true" signature="initPages()[pri:0, instance:com.magicbricks.tests.LoginTest@1700915]" started-at="2026-08-31T23:30:51 IST" name="initPages" finished-at="2026-08-31T23:30:51 IST" duration-ms="30" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initPages -->
-        <test-method signature="verifyInvalidMobileNumberRejected(java.lang.String,java.lang.String,java.lang.String)[pri:3, instance:com.magicbricks.tests.LoginTest@9353778]" started-at="2026-08-31T22:48:46 IST" name="verifyInvalidMobileNumberRejected" description="TC_LG_003: Verify invalid mobile/email input is rejected with error" data-provider="invalidLoginMobileData" finished-at="2026-08-31T22:49:12 IST" duration-ms="26208" status="PASS">
+        <test-method signature="verifyInvalidMobileNumberRejected(java.lang.String,java.lang.String,java.lang.String)[pri:3, instance:com.magicbricks.tests.LoginTest@1700915]" started-at="2026-08-31T23:30:51 IST" name="verifyInvalidMobileNumberRejected" description="TC_LG_003: Verify invalid mobile/email input is rejected with error" data-provider="invalidLoginMobileData" finished-at="2026-08-31T23:31:07 IST" duration-ms="16080" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -294,19 +348,19 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- verifyInvalidMobileNumberRejected -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.LoginTest@9353778]" started-at="2026-08-31T22:49:12 IST" name="tearDown" finished-at="2026-08-31T22:49:18 IST" duration-ms="6361" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.LoginTest@1700915]" started-at="2026-08-31T23:31:07 IST" name="tearDown" finished-at="2026-08-31T23:31:24 IST" duration-ms="16428" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.LoginTest@9353778]" started-at="2026-08-31T22:49:19 IST" name="setUp" finished-at="2026-08-31T22:49:23 IST" duration-ms="4255" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.magicbricks.tests.LoginTest@1700915]" started-at="2026-08-31T23:31:24 IST" name="setUp" finished-at="2026-08-31T23:31:29 IST" duration-ms="5187" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initPages()[pri:0, instance:com.magicbricks.tests.LoginTest@9353778]" started-at="2026-08-31T22:49:23 IST" name="initPages" finished-at="2026-08-31T22:49:23 IST" duration-ms="12" status="PASS">
+        <test-method is-config="true" signature="initPages()[pri:0, instance:com.magicbricks.tests.LoginTest@1700915]" started-at="2026-08-31T23:31:29 IST" name="initPages" finished-at="2026-08-31T23:31:29 IST" duration-ms="8" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initPages -->
-        <test-method signature="verifyInvalidMobileNumberRejected(java.lang.String,java.lang.String,java.lang.String)[pri:3, instance:com.magicbricks.tests.LoginTest@9353778]" started-at="2026-08-31T22:49:23 IST" name="verifyInvalidMobileNumberRejected" description="TC_LG_003: Verify invalid mobile/email input is rejected with error" data-provider="invalidLoginMobileData" finished-at="2026-08-31T22:49:49 IST" duration-ms="26400" status="PASS">
+        <test-method signature="verifyInvalidMobileNumberRejected(java.lang.String,java.lang.String,java.lang.String)[pri:3, instance:com.magicbricks.tests.LoginTest@1700915]" started-at="2026-08-31T23:31:29 IST" name="verifyInvalidMobileNumberRejected" description="TC_LG_003: Verify invalid mobile/email input is rejected with error" data-provider="invalidLoginMobileData" finished-at="2026-08-31T23:31:45 IST" duration-ms="15699" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -327,7 +381,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- verifyInvalidMobileNumberRejected -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.LoginTest@9353778]" started-at="2026-08-31T22:49:49 IST" name="tearDown" finished-at="2026-08-31T22:49:55 IST" duration-ms="5945" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.magicbricks.tests.LoginTest@1700915]" started-at="2026-08-31T23:31:45 IST" name="tearDown" finished-at="2026-08-31T23:32:01 IST" duration-ms="16781" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->

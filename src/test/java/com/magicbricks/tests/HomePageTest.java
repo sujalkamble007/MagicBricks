@@ -11,13 +11,15 @@ import org.testng.asserts.SoftAssert;
 /**
  * Production-grade TestNG Test Class for MagicBricks Home Page Module.
  *
- * Implements thorough TestNG assertions mapping 1:1 to every documented
- * Expected Result from Sprint Day 1:
- * - TC_HP_001: Verify Home Page Title (Hard Assert)
- * - TC_HP_002: Verify Header Elements Visibility (SoftAssert across Logo, Login, Post Property, City)
- * - TC_HP_003: Verify Search Category Tabs Presence and Default State (SoftAssert across 5 tabs & Buy active)
- * - TC_HP_004: Verify Search Autocomplete Suggestions Trigger (Data-Driven via Excel, Hard Assert)
- * - TC_HP_005: Verify Tab Switching Interactivity between Buy and Rent (Hard Assert state transitions)
+ * Implements individual test cases for each progressive section with concrete locator validation:
+ * - TC_HP_001: Verify Home Page Title (Top Section - Smoke)
+ * - TC_HP_002: Verify Header Elements Visibility (Top Section - Smoke)
+ * - TC_HP_003: Verify Search Category Tabs Presence and Default State (Search Hero - Regression)
+ * - TC_HP_004: Verify Search Autocomplete Suggestions Trigger (Search Hero - Data-Driven Regression)
+ * - TC_HP_005: Verify Tab Switching Interactivity between Buy and Rent (Search Hero - Regression)
+ * - TC_HP_006: Verify Mid-Page Section Scroll & Content Locators (Mid Page Scroll - Regression)
+ * - TC_HP_007: Verify Bottom Footer Section Scroll & Content Locators (Bottom Page Scroll - Regression)
+ * - TC_HP_008: Verify Scroll To Bottom and Return To Top Behavior (Full Page Traversal - Regression)
  */
 public class HomePageTest extends BaseTest {
 
@@ -30,11 +32,7 @@ public class HomePageTest extends BaseTest {
 
     /**
      * TC_HP_001: Verify Home Page Title
-     * Preconditions: Browser open, navigated to magicbricks.com
-     * Steps:
-     *   1. Navigate to magicbricks.com (handled by BaseTest @BeforeMethod)
-     *   2. Read page title
-     * Expected Result: Page title contains "MagicBricks" or "Real Estate"
+     * Section: Top of Page | Type: Positive | Priority: P0 | Groups: homepage, smoke
      */
     @Test(priority = 1, groups = {"homepage", "smoke"},
             description = "TC_HP_001: Verify home page title contains MagicBricks")
@@ -47,16 +45,10 @@ public class HomePageTest extends BaseTest {
 
     /**
      * TC_HP_002: Verify Header Elements Visibility
-     * Preconditions: Home page loaded
-     * Steps:
-     *   1. Check MagicBricks logo visibility
-     *   2. Check Login button visibility in header
-     *   3. Check Post Property link visibility
-     *   4. Check City selector link displays non-empty text
-     * Expected Result: Logo, Login button, Post Property link displayed; City text not empty
+     * Section: Top Header Bar | Type: Positive | Priority: P0 | Groups: homepage, smoke
      */
     @Test(priority = 2, groups = {"homepage", "smoke"},
-            description = "TC_HP_002: Verify header elements (logo, login, post property) are visible")
+            description = "TC_HP_002: Verify header elements (logo, login, post property, city) are visible")
     public void verifyHeaderElementsVisibility() {
         SoftAssert softAssert = new SoftAssert();
 
@@ -77,14 +69,7 @@ public class HomePageTest extends BaseTest {
 
     /**
      * TC_HP_003: Verify Search Tabs Presence and Default State
-     * Preconditions: Home page loaded
-     * Steps:
-     *   1. Verify Buy tab is displayed and has 'active' CSS class by default
-     *   2. Verify Rent tab is displayed
-     *   3. Verify PG tab is displayed
-     *   4. Verify Plot tab is displayed
-     *   5. Verify Commercial tab is displayed
-     * Expected Result: All 5 tabs displayed; Buy tab has 'active' class
+     * Section: Search Hero Container | Type: Positive | Priority: P0 | Groups: homepage, regression
      */
     @Test(priority = 3, groups = {"homepage", "regression"},
             description = "TC_HP_003: Verify search tabs presence and Buy is default active")
@@ -105,12 +90,7 @@ public class HomePageTest extends BaseTest {
 
     /**
      * TC_HP_004: Verify Search Autocomplete Triggers on Input (Data-Driven via Excel)
-     * Preconditions: Home page loaded, search box visible
-     * Steps:
-     *   1. Focus search input field
-     *   2. Type locality name (e.g., Whitefield, Koramangala, Indiranagar)
-     *   3. Wait explicitly for autocomplete suggestions dropdown
-     * Expected Result: Suggestions dropdown becomes visible after typing
+     * Section: Search Input Field | Type: Positive | Priority: P1 | Groups: homepage, regression
      */
     @Test(priority = 4, groups = {"homepage", "regression"},
             dataProvider = "searchLocalitiesData", dataProviderClass = DataProviders.class,
@@ -126,17 +106,11 @@ public class HomePageTest extends BaseTest {
 
     /**
      * TC_HP_005: Verify Tab Switching Between Buy and Rent
-     * Preconditions: Home page loaded, Buy tab active
-     * Steps:
-     *   1. Verify Buy tab active initially
-     *   2. Click Rent tab -> Verify Rent active and Buy inactive
-     *   3. Click Buy tab -> Verify Buy active again and Rent inactive
-     * Expected Result: Active CSS class toggles correctly; only one active tab at a time
+     * Section: Search Category Tabs | Type: Positive | Priority: P1 | Groups: homepage, regression
      */
     @Test(priority = 5, groups = {"homepage", "regression"},
             description = "TC_HP_005: Verify Buy/Rent tab switching toggles active state")
     public void verifyTabSwitchingBuyRent() {
-        // Initial state validation
         Assert.assertTrue(homePage.isSearchBuyTabActive(),
                 "Buy tab must be active initially before any click");
 
@@ -153,5 +127,68 @@ public class HomePageTest extends BaseTest {
                 "Buy tab must become active again after being clicked");
         Assert.assertFalse(homePage.isSearchRentTabActive(),
                 "Rent tab must not remain active after Buy is selected");
+    }
+
+    /**
+     * TC_HP_006: Verify Mid-Page Section Scroll & Content Locators
+     * Section: Mid-Page Content Section | Type: Positive | Priority: P1 | Groups: homepage, regression
+     * Steps:
+     *   1. Land on Home Page.
+     *   2. Scroll down to mid-page section container.
+     *   3. Highlight and assert container visibility.
+     *   4. Highlight and assert heading text is not empty.
+     */
+    @Test(priority = 6, groups = {"homepage", "regression"},
+            description = "TC_HP_006: Verify scroll to mid-page and validate section container and heading locators")
+    public void verifyMidPageSectionScrollAndContent() {
+        SoftAssert softAssert = new SoftAssert();
+
+        boolean isContainerVisible = homePage.isMidSectionContainerDisplayed();
+        softAssert.assertTrue(isContainerVisible, "Mid-page section container must be visible after scrolling");
+
+        String headingText = homePage.getMidSectionHeadingText();
+        softAssert.assertFalse(headingText.isEmpty(), "Mid-page section heading text must not be empty");
+
+        softAssert.assertAll();
+    }
+
+    /**
+     * TC_HP_007: Verify Bottom Footer Section Scroll & Content Locators
+     * Section: Bottom Footer Area | Type: Positive | Priority: P1 | Groups: homepage, regression
+     * Steps:
+     *   1. Land on Home Page.
+     *   2. Scroll all the way down to footer area.
+     *   3. Highlight and assert footer container visibility.
+     *   4. Highlight and assert footer links / text presence.
+     */
+    @Test(priority = 7, groups = {"homepage", "regression"},
+            description = "TC_HP_007: Verify scroll to bottom and validate footer container and link locators")
+    public void verifyFooterSectionScrollAndLinks() {
+        SoftAssert softAssert = new SoftAssert();
+
+        boolean isFooterVisible = homePage.isFooterContainerDisplayed();
+        softAssert.assertTrue(isFooterVisible, "Footer container must be visible after scrolling to the bottom");
+
+        String footerLinkText = homePage.getFooterLinkOrHeadingText();
+        softAssert.assertFalse(footerLinkText.isEmpty(), "Footer title or link text must not be empty");
+
+        softAssert.assertAll();
+    }
+
+    /**
+     * TC_HP_008: Verify Scroll To Bottom and Return To Top Behavior
+     * Section: Full Page Traversal | Type: Positive | Priority: P1 | Groups: homepage, regression
+     * Steps:
+     *   1. Scroll to footer container at the bottom.
+     *   2. Scroll smoothly all the way back to the top.
+     *   3. Assert MagicBricks Logo is visible at top.
+     */
+    @Test(priority = 8, groups = {"homepage", "regression"},
+            description = "TC_HP_008: Verify smooth scroll to bottom and return to top")
+    public void verifyScrollToTopBehavior() {
+        homePage.isFooterContainerDisplayed();
+        homePage.scrollToTop();
+        Assert.assertTrue(homePage.isLogoDisplayed(),
+                "MagicBricks Logo must be visible after returning to top of page");
     }
 }

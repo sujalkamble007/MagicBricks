@@ -173,7 +173,8 @@ public class BasePage {
     // ==================== WINDOW & TAB SWITCHING HELPERS ====================
 
     /**
-     * Switches to a new tab/window when a link or CTA opens a secondary window.
+     * Switches to a new tab/window when a link or CTA opens a secondary window,
+     * and brings the new tab into foreground focus.
      */
     public void switchToNewTab() {
         String originalHandle = driver.getWindowHandle();
@@ -182,6 +183,9 @@ public class BasePage {
         for (String handle : allHandles) {
             if (!handle.equals(originalHandle)) {
                 driver.switchTo().window(handle);
+                try {
+                    ((JavascriptExecutor) driver).executeScript("window.focus();");
+                } catch (Exception ignored) {}
                 break;
             }
         }

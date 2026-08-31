@@ -3,6 +3,7 @@ package com.magicbricks.pages;
 import com.magicbricks.base.BasePage;
 import com.magicbricks.utils.OtpHelper;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,27 +15,33 @@ import java.util.List;
  * Page Object for the MagicBricks Login Page / Modal.
  * URL: https://accounts.magicbricks.com/userauth/login
  *
- * Handles:
- * - Tab switching / iframe switching (if rendered as an embedded iframe modal)
- * - User type selection (Buyer/Owner vs. Agent/Builder)
- * - Mobile/Email input and field management
- * - Step 1 submission (Continue)
- * - OTP detection and console-prompted manual entry
- * - Error message validation
+ * PageFactory elements (@FindBy) are 100% mapped to active interaction/verification methods:
+ * - Login form container and heading
+ * - User type radio buttons & labels (Buyer/Owner vs. Agent/Builder)
+ * - Email/Mobile input field and label with visible character typing
+ * - Continue submit button
+ * - OTP field and Verify button
+ * - Validation error messages & loading indicators
  *
- * Follows Single Responsibility Principle (SRP) and Open/Closed Principle (OCP).
+ * Adheres strictly to SRP, POM, and clean code practices.
  */
 public class LoginPage extends BasePage {
 
-    // Possible iframe locators if login renders inside an embedded iframe modal
-    private static final By LOGIN_IFRAME_LOCATOR = By.cssSelector("iframe[src*='userauth'], iframe#loginIframe, iframe[id*='login'], iframe[title*='login']");
+    private static final By LOGIN_IFRAME_LOCATOR = By.cssSelector("iframe[src*='userauth'], iframe#loginIframe");
 
     // ==================== CONSTRUCTOR ====================
 
     public LoginPage(WebDriver driver) {
         super(driver);
-        // Resiliently switch into iframe if the login form is rendered inside one
-        switchToFrameIfPresent(LOGIN_IFRAME_LOCATOR);
+        // Ensure the current window is focused in foreground
+        try {
+            ((JavascriptExecutor) driver).executeScript("window.focus();");
+        } catch (Exception ignored) {}
+
+        // If login container is not in top-level document, check for modal iframe
+        if (driver.findElements(By.id("firstLoginDiv")).isEmpty()) {
+            switchToFrameIfPresent(LOGIN_IFRAME_LOCATOR);
+        }
     }
 
     // ==================== LOGIN FORM ELEMENTS ====================
@@ -105,6 +112,22 @@ public class LoginPage extends BasePage {
         return prepareElement(emailOrMobileLabel).getText().trim();
     }
 
+    public String getBuyerOwnerLabelText() {
+        return prepareElement(buyerOwnerLabel).getText().trim();
+    }
+
+    public String getAgentBuilderLabelText() {
+        return prepareElement(agentBuilderLabel).getText().trim();
+    }
+
+    public boolean isLoginLoaderDisplayed() {
+        try {
+            return loginLoader.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     // ==================== USER TYPE SELECTION ====================
 
     public void selectBuyerOwner() {
@@ -127,12 +150,15 @@ public class LoginPage extends BasePage {
     // ==================== MOBILE/EMAIL INPUT ====================
 
     /**
-     * Enters a mobile number or email into the login input field.
+     * Enters a mobile number or email into the login input field with visible typing.
      */
     public void enterMobileNumber(String mobileNumber) {
         WebElement input = prepareElement(emailOrMobileInput);
+        input.click();
         input.clear();
-        input.sendKeys(mobileNumber);
+        for (char c : mobileNumber.toCharArray()) {
+            input.sendKeys(String.valueOf(c));
+        }
         actionDelay();
     }
 
@@ -193,7 +219,9 @@ public class LoginPage extends BasePage {
         try {
             WebElement otpField = prepareElement(otpInputField);
             otpField.clear();
-            otpField.sendKeys(otp);
+            for (char c : otp.toCharArray()) {
+                otpField.sendKeys(String.valueOf(c));
+            }
             actionDelay();
 
             try {
