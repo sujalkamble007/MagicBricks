@@ -1,10 +1,12 @@
-com/magicbricks/pages/LoginPage.class
 com/magicbricks/utils/OtpHelper.class
-com/magicbricks/base/BasePage.class
+com/magicbricks/utils/ExcelUtils.class
 com/magicbricks/pages/HomePage.class
 com/magicbricks/tests/LoginTest.class
 com/magicbricks/utils/ConfigReader.class
-com/magicbricks/utils/DriverManager.class
-com/magicbricks/tests/HomePageTest.class
 com/magicbricks/base/BaseTest.class
 com/magicbricks/utils/WaitHelper.class
+com/magicbricks/pages/LoginPage.class
+com/magicbricks/utils/DataProviders.class
+com/magicbricks/base/BasePage.class
+com/magicbricks/utils/DriverManager.class
+com/magicbricks/tests/HomePageTest.class

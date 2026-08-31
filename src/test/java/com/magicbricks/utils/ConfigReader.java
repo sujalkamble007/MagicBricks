@@ -57,4 +57,8 @@ public class ConfigReader {
     public static boolean isHighlightEnabled() {
         return Boolean.parseBoolean(getProperty("highlight.elements"));
     }
+
+    public static String getTestDataExcelPath() {
+        return getProperty("testdata.excel.path");
+    }
 }
