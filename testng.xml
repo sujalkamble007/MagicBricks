@@ -12,15 +12,10 @@
 -->
 <suite name="MagicBricks Automation Suite" parallel="none" thread-count="2" verbose="2">
 
-    <!-- Optional Group filtering: uncomment to run specific test slices -->
-    <!--
-    <groups>
-        <run>
-            <include name="smoke" />
-            <include name="regression" />
-        </run>
-    </groups>
-    -->
+    <!-- Listeners for ExtentReports and Screenshot Logging -->
+    <listeners>
+        <listener class-name="com.magicbricks.listeners.ExtentReportListener" />
+    </listeners>
 
     <test name="Home Page Module Tests" preserve-order="true">
         <groups>
