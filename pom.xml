@@ -9,8 +9,11 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- Java 11 Source and Target Compatibility -->
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
+		
+		<!-- Explicit, Non-floating Dependency Versions for Reproducible Builds -->
 		<selenium.version>4.34.0</selenium.version>
 		<testng.version>7.11.0</testng.version>
 		<webdrivermanager.version>6.1.0</webdrivermanager.version>
@@ -21,14 +24,14 @@
 
 	<dependencies>
 
-		<!-- Selenium WebDriver -->
+		<!-- Selenium WebDriver: Core browser automation APIs, PageFactory, and Actions -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
 			<version>${selenium.version}</version>
 		</dependency>
 
-		<!-- TestNG -->
+		<!-- TestNG: Test execution engine, suite configurations, assertions, and data providers -->
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
@@ -36,21 +39,21 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- WebDriverManager (Boni Garcia) -->
+		<!-- WebDriverManager: Automated ChromeDriver binary management and browser resolution -->
 		<dependency>
 			<groupId>io.github.bonigarcia</groupId>
 			<artifactId>webdrivermanager</artifactId>
 			<version>${webdrivermanager.version}</version>
 		</dependency>
 
-		<!-- ExtentReports -->
+		<!-- ExtentReports: Interactive HTML execution reporting with embedded failure screenshots -->
 		<dependency>
 			<groupId>com.aventstack</groupId>
 			<artifactId>extentreports</artifactId>
 			<version>${extentreports.version}</version>
 		</dependency>
 
-		<!-- Apache POI (Excel reading for data-driven tests) -->
+		<!-- Apache POI: Excel reader engine for Data-Driven Testing from TestData.xlsx -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
@@ -62,7 +65,7 @@
 			<version>${poi.version}</version>
 		</dependency>
 
-		<!-- Apache Commons IO -->
+		<!-- Apache Commons IO: File utilities for screenshot writing and directory operations -->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
@@ -73,7 +76,7 @@
 
 	<build>
 		<plugins>
-			<!-- Maven Compiler Plugin -->
+			<!-- Maven Compiler Plugin: Enforces Java 11 compilation -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -84,7 +87,7 @@
 				</configuration>
 			</plugin>
 
-			<!-- Maven Surefire Plugin for TestNG -->
+			<!-- Maven Surefire Plugin: Executes TestNG suite (testng.xml) during mvn test -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>

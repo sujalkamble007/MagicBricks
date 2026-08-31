@@ -1,0 +1,52 @@
+# ============================================
+# MagicBricks Automation Framework .gitignore
+# ============================================
+
+# Maven build artifacts
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# Eclipse IDE metadata
+.classpath
+.project
+.settings/
+.metadata/
+bin/
+
+# IntelliJ IDEA metadata
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# VS Code metadata
+.vscode/
+
+# TestNG default outputs
+test-output/
+
+# Runtime test reports and screenshots (keep folders via .gitkeep)
+reports/*
+!reports/.gitkeep
+
+screenshots/*
+!screenshots/.gitkeep
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Log and temp files
+*.log
+*.tmp
+*.bak
+*.swp

@@ -6,14 +6,14 @@ An enterprise-grade, Page Object Model (POM) test automation framework built wit
 
 ## 1. Project Overview & Scope
 - **Target Application**: [MagicBricks Desktop Web](https://www.magicbricks.com/)
-- **Modules Covered**:
-  1. **Home Page**: Header branding, city selector, login triggers, search category tabs (Buy, Rent, PG, Plot, Commercial, New Projects), autocomplete suggestions, tab switching, and progressive page traversal.
-  2. **Login Module**: Login dropdown, CTA navigation to login tab/modal, user-type selection, valid mobile number input (`9518306867`), console-prompted live OTP flow, and negative input validation (short digits, alpha strings, special characters).
-- **Out of Scope**: Listings, property detail pages (PDP), post-property submission, and financial calculators.
+- **Explicit Scope Statement**: This framework automates the **Home Page** and **Login Module** only, per the case study project scope.
+- **Key Modules Covered**:
+  1. **Home Page**: Header branding, city selector, login triggers, search category tabs (Buy, Rent, PG, Plot, Commercial, New Projects), autocomplete suggestions, interactive tab switching, and progressive top-to-bottom page traversal (mid-page content & bottom footer locators).
+  2. **Login Module**: Login dropdown menu, CTA navigation, buyer/agent selection, valid mobile number input (`9518306867`), console-prompted live OTP hook, and data-driven negative input validation (short digits, alpha strings, special characters).
 
 ---
 
-## 2. Technical Stack & Architecture
+## 2. Technical Stack
 - **Language**: Java 11 (LTS)
 - **Automation Tool**: Selenium WebDriver 4.34.0
 - **Driver Management**: Boni Garcia WebDriverManager 6.1.0
@@ -21,8 +21,8 @@ An enterprise-grade, Page Object Model (POM) test automation framework built wit
 - **Design Pattern**: Page Object Model (POM) with PageFactory (`@FindBy`)
 - **Data-Driven Engine**: Apache POI 5.2.5 (`TestData.xlsx`)
 - **Reporting Engine**: ExtentReports 5.1.2 + TestNG Default Reporting (`emailable-report.html`)
-- **Build & Dependency Management**: Apache Maven 3.9+
-- **Architectural Principles**: SOLID Principles (SRP, OCP, LSP, ISP, DIP)
+- **Build Tool**: Apache Maven 3.8+
+- **Architecture**: SOLID Principles (SRP, OCP, LSP, ISP, DIP)
 
 ---
 
@@ -32,7 +32,12 @@ An enterprise-grade, Page Object Model (POM) test automation framework built wit
 MagicBricks/
 ├── pom.xml                               # Maven project configuration and dependencies
 ├── testng.xml                            # TestNG suite runner with listeners and parallel scaffolding
-├── README.md                             # Comprehensive framework documentation
+├── .gitignore                            # Comprehensive git exclusion rules
+├── README.md                             # Clone-and-run framework documentation
+├── screenshots/
+│   └── .gitkeep                          # Directory for captured runtime screenshots
+├── reports/
+│   └── .gitkeep                          # Directory for ExtentReports HTML output
 ├── src/test/java/com/magicbricks/
 │   ├── base/
 │   │   ├── BasePage.java                 # Base page object with scrolling, highlighting, and tab/frame helpers
@@ -64,59 +69,79 @@ MagicBricks/
 ---
 
 ## 4. Prerequisites
-- **Java Development Kit**: JDK 11 installed (`java -version` verifies Java 11).
-- **Build Tool**: Apache Maven 3.8+ (`mvn -version`).
-- **Browser**: Google Chrome (ChromeDriver handled automatically by WebDriverManager).
-- **IDE**: Eclipse IDE for Java Developers with TestNG and Maven plugins installed.
+Before running the project on a fresh machine, ensure you have:
+1. **JDK 11**: Java Development Kit 11 installed (`java -version` returns 11.x).
+2. **Apache Maven**: Maven 3.8+ installed (`mvn -version`).
+3. **Google Chrome**: Latest stable Google Chrome browser installed (WebDriverManager handles the binary automatically).
+4. **Eclipse IDE**: Eclipse IDE for Java Developers (2023-06 or newer recommended).
 
 ---
 
-## 5. Setup & Installation in Eclipse
-1. **Clone or Open Project**:
-   - In Eclipse: `File` → `Import...` → `Maven` → `Existing Maven Projects` → Select project directory `/Users/sujalkamble/Desktop/Testing/MagicBricks`.
-2. **Download Dependencies**:
-   - Right-click project root → `Maven` → `Update Project...` (or run `mvn clean install -DskipTests`).
-3. **Verify Build**:
-   - Run `mvn test-compile` in terminal or Eclipse Console to ensure zero compilation errors.
+## 5. Clone & Setup Instructions (Under 5 Minutes)
+
+### Step 1: Clone the Repository
+```bash
+git clone <repository-url>
+cd MagicBricks
+```
+
+### Step 2: Import into Eclipse IDE
+1. Launch Eclipse IDE.
+2. Go to **File** → **Import...**
+3. Select **Maven** → **Existing Maven Projects** and click **Next**.
+4. Browse and select the cloned `MagicBricks` folder.
+5. Click **Finish** and wait for Eclipse/Maven to download dependencies.
+
+### Step 3: Verify Java Build Path
+1. Right-click the project root → **Properties** → **Java Build Path**.
+2. Ensure **JRE System Library** points to **JavaSE-11** (or compatible JDK 11).
+3. If dependencies show warnings, right-click project → **Maven** → **Update Project...** (Check *Force Update of Snapshots/Releases*).
 
 ---
 
 ## 6. How to Run Tests
 
-### Option A: Via Maven (Terminal or Eclipse)
-Run the full test suite sequentially:
+### Option A: Via Eclipse IDE (Recommended)
+1. Locate `testng.xml` at the project root.
+2. Right-click `testng.xml` → **Run As** → **TestNG Suite**.
+3. Chrome will launch in maximized mode and execute all test cases with visual highlights and smooth scrolling.
+
+### Option B: Via Terminal / Command Line
+Execute all tests sequentially:
 ```bash
 mvn clean test
 ```
-
-### Option B: Via Eclipse TestNG Runner
-1. Right-click on `testng.xml` in the project root.
-2. Select **Run As** → **TestNG Suite**.
 
 ---
 
 ## 7. Reports & Output Locations
 
-After execution, two independent, complementary reports are generated:
+After test execution, both reporting engines generate output automatically:
 
-1. **ExtentReports (Rich HTML Report with Screenshots & Timestamps)**:
-   - File Path: `reports/TestReport_HomeLogin_<yyyy-MM-dd_HH-mm-ss>.html`
-   - Features: Visual charts, execution duration, test categories, step logs, and embedded failure screenshots.
+1. **ExtentReports HTML Report (With Embedded Screenshots & Interactive Charts)**:
+   - Location: `reports/TestReport_HomeLogin_<yyyy-MM-dd_HH-mm-ss>.html`
+   - Features: Visual summary dashboard, category filtering, execution logs, and full-resolution screenshot snapshots attached to every test case.
+
 2. **TestNG Default Reports**:
-   - File Path: `target/surefire-reports/emailable-report.html`
-   - File Path: `target/surefire-reports/testng-results.xml`
+   - Location: `target/surefire-reports/emailable-report.html`
+   - Location: `target/surefire-reports/testng-results.xml`
+
+3. **Disk Screenshots**:
+   - Location: `screenshots/` (Contains `.png` files captured for all executed test scenarios).
 
 ---
 
-## 8. Test Data Structure (`TestData.xlsx`)
+## 8. Troubleshooting & Common Issues
 
-Located at `src/test/resources/testdata/TestData.xlsx`:
-- **`ValidLoginData`**: Primary mobile number (`9518306867`).
-- **`InvalidLoginData`**: Negative test inputs (`12345`, `abcdefghij`, `!@#$%^&*`).
-- **`SearchData`**: Parameterized search localities (`Whitefield`, `Koramangala`, `Indiranagar`).
+| Issue / Symptom | Root Cause | Solution |
+|---|---|---|
+| `TestNG plugin not found in Eclipse` | Eclipse lacks TestNG runner | Go to **Help** → **Eclipse Marketplace** → Search `TestNG for Eclipse` → Click **Install** and restart Eclipse. |
+| `ChromeDriver download failure on first run` | WebDriverManager requires internet access on first run to resolve the driver binary | Ensure internet connectivity is active during the initial execution. Once downloaded, the driver is cached locally in `~/.cache/selenium/`. |
+| `Java compiler level mismatch` | Project JRE set to JDK 8 or JDK 17+ | Right-click project → **Properties** → **Java Compiler** → Enable project specific settings and set compiler compliance level to **11**. |
+| `Target or report files not opening` | Path references | Refresh Eclipse project explorer (press `F5` on project root) to view newly generated `reports/` and `screenshots/`. |
 
 ---
 
 ## 9. Known Limitations & Assumptions
-- **Live OTP Delivery**: For the positive login test (`TC_LG_002`), real OTP delivery requires SMS access. The framework triggers the OTP request and provides an interactive console `Scanner` hook (`OtpHelper.waitForOtpInput()`) for manual entry.
-- **Login Launch Style**: MagicBricks opens `https://accounts.magicbricks.com/userauth/login` in a new browser tab; the framework automatically switches window handles and focuses the tab in foreground.
+- **Live OTP Verification**: Positive login (`TC_LG_002`) automates the flow up to triggering the OTP request on MagicBricks accounts. Actual SMS delivery is external to web automation; the framework includes an interactive `OtpHelper.waitForOtpInput()` hook allowing the tester to type the live OTP via the console prompt if desired.
+- **Login Tab Handling**: Clicking Login CTA opens `https://accounts.magicbricks.com/userauth/login` in a new browser tab. The framework automatically switches window handles and focuses the login window in the foreground.
