@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="MagicBricks Automation Suite" parallel="none" thread-count="1" verbose="2">
+
+    <test name="Home Page Tests">
+        <classes>
+            <class name="com.magicbricks.tests.HomePageTest" />
+        </classes>
+    </test>
+
+    <test name="Login Tests">
+        <classes>
+            <class name="com.magicbricks.tests.LoginTest" />
+        </classes>
+    </test>
+
+</suite>
