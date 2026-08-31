@@ -1,25 +1,21 @@
 package com.magicbricks.pages;
 
 import com.magicbricks.base.BasePage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.ArrayList;
-import java.util.Set;
-
 /**
  * Page Object for the MagicBricks Home Page (https://www.magicbricks.com/).
  *
- * Contains all locators (via @FindBy PageFactory) and interaction methods
- * for: header elements, navigation tabs, search category tabs, search box,
- * autocomplete suggestions, and login dropdown.
+ * Contains PageFactory locators (@FindBy) and interaction methods for:
+ * - Header navigation and utility links (Logo, City Selector, Login, Post Property)
+ * - Search category tabs (Buy, Rent, PG, Plot, Commercial, New Projects)
+ * - Search input field with autocomplete suggestions
+ * - Login dropdown menu
  *
- * Locator strategy rationale:
- * - ID: used where available (tabBUY, tabRENT, keyword, etc.) — most reliable
- * - CSS: used for class-based elements without IDs (logo, login button, post property)
- * - XPath: used only for the New Projects tab which lacks a stable ID and is
- *   an anchor (<a>) among sibling divs, making pure CSS insufficient
+ * Follows Single Responsibility Principle (SRP) and Open/Closed Principle (OCP).
  */
 public class HomePage extends BasePage {
 
@@ -38,13 +34,13 @@ public class HomePage extends BasePage {
     private WebElement citySelectorLink;
 
     @FindBy(css = "div.mb-header__main__login > a.js-menu-link")
-    private WebElement loginButton; // TODO: verify against live DOM — child combinator specificity
+    private WebElement loginButton;
 
     @FindBy(css = "a.mb-login__drop-cta")
     private WebElement loginSignUpCta;
 
     @FindBy(css = "div.mb-header__main__dropdown.mb-login")
-    private WebElement loginDropdownContainer; // TODO: verify against live DOM — dropdown panel classes
+    private WebElement loginDropdownContainer;
 
     @FindBy(css = "div.mb-header__main__postproperty a")
     private WebElement postPropertyLink;
@@ -75,7 +71,7 @@ public class HomePage extends BasePage {
     private WebElement searchCommercialTab;
 
     @FindBy(xpath = "//div[contains(@class,'mb-search__tab')]//a[contains(@class,'mb-search__tab__item')]")
-    private WebElement searchNewProjectsTab; // TODO: verify against live DOM — dynamic animated tab
+    private WebElement searchNewProjectsTab;
 
     // ==================== SEARCH BOX ====================
 
@@ -83,10 +79,19 @@ public class HomePage extends BasePage {
     private WebElement searchInput;
 
     @FindBy(css = "div.mb-search__suggestions")
-    private WebElement suggestionsContainer; // TODO: verify against live DOM — JS-rendered after typing
+    private WebElement suggestionsContainer;
 
     @FindBy(css = "div.mb-search__location__error")
     private WebElement locationErrorMessage;
+
+    // Suggestion container locators for explicit wait polling
+    private static final By[] SUGGESTION_LOCATORS = {
+            By.cssSelector("div.mb-search__dropdown"),
+            By.cssSelector("div.mb-search__suggestions"),
+            By.cssSelector("div[class*='auto-suggest']"),
+            By.cssSelector("div[class*='suggestion']"),
+            By.cssSelector("div.mb-search__suggestions__item")
+    };
 
     // ==================== HEADER — VISIBILITY CHECKS ====================
 
@@ -115,7 +120,6 @@ public class HomePage extends BasePage {
 
     /**
      * Checks if the Login/Sign Up CTA inside the login dropdown is visible.
-     * Used by TC_LG_001 after clicking the Login header button.
      */
     public boolean isLoginSignUpCtaDisplayed() {
         try {
@@ -156,7 +160,7 @@ public class HomePage extends BasePage {
 
     public boolean isSearchPgTabDisplayed() {
         try {
-            return searchPgTab.isDisplayed();
+            return prepareElement(searchPgTab).isDisplayed();
         } catch (Exception e) {
             return false;
         }
@@ -164,7 +168,7 @@ public class HomePage extends BasePage {
 
     public boolean isSearchPlotTabDisplayed() {
         try {
-            return searchPlotTab.isDisplayed();
+            return prepareElement(searchPlotTab).isDisplayed();
         } catch (Exception e) {
             return false;
         }
@@ -172,7 +176,7 @@ public class HomePage extends BasePage {
 
     public boolean isSearchCommercialTabDisplayed() {
         try {
-            return searchCommercialTab.isDisplayed();
+            return prepareElement(searchCommercialTab).isDisplayed();
         } catch (Exception e) {
             return false;
         }
@@ -188,13 +192,15 @@ public class HomePage extends BasePage {
 
     /**
      * Clicks on the search input to focus it before typing.
-     * Some sites require explicit focus to activate autocomplete listeners.
      */
     public void clickSearchInput() {
         prepareElement(searchInput).click();
         actionDelay();
     }
 
+    /**
+     * Enters search text character by character to trigger live keyup listeners.
+     */
     public void enterSearchText(String text) {
         WebElement input = prepareElement(searchInput);
         input.click();
@@ -205,31 +211,15 @@ public class HomePage extends BasePage {
         actionDelay();
     }
 
+    /**
+     * Waits explicitly for the autocomplete suggestions dropdown to appear.
+     */
     public boolean isSuggestionsDropdownDisplayed() {
-        org.openqa.selenium.By[] locators = {
-            org.openqa.selenium.By.cssSelector("div.mb-search__dropdown"),
-            org.openqa.selenium.By.cssSelector("div.mb-search__suggestions"),
-            org.openqa.selenium.By.cssSelector("div[class*='auto-suggest']"),
-            org.openqa.selenium.By.cssSelector("div[class*='suggestion']"),
-            org.openqa.selenium.By.cssSelector("div.mb-search__suggestions__item")
-        };
-        long endTime = System.currentTimeMillis() + 5000;
-        while (System.currentTimeMillis() < endTime) {
-            for (org.openqa.selenium.By loc : locators) {
-                java.util.List<WebElement> elements = driver.findElements(loc);
-                for (WebElement el : elements) {
-                    try {
-                        if (el.isDisplayed()) {
-                            return true;
-                        }
-                    } catch (Exception ignored) {}
-                }
-            }
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException ignored) {}
+        try {
+            return waitHelper.waitForAnyElementVisible(SUGGESTION_LOCATORS);
+        } catch (Exception e) {
+            return false;
         }
-        return false;
     }
 
     public boolean isLocationErrorDisplayed() {
@@ -237,35 +227,6 @@ public class HomePage extends BasePage {
             return locationErrorMessage.isDisplayed();
         } catch (Exception e) {
             return false;
-        }
-    }
-
-    // ==================== WINDOW HANDLE HELPERS ====================
-
-    /**
-     * Switches the WebDriver focus to a newly opened tab.
-     * Used when Login/Sign Up CTA opens the login page in a new browser tab.
-     * Waits for the second window handle to become available.
-     */
-    public void switchToNewTab() {
-        String originalHandle = driver.getWindowHandle();
-        waitHelper.waitForNumberOfWindows(2);
-        Set<String> allHandles = driver.getWindowHandles();
-        for (String handle : allHandles) {
-            if (!handle.equals(originalHandle)) {
-                driver.switchTo().window(handle);
-                break;
-            }
-        }
-    }
-
-    /**
-     * Returns to the original (first) browser tab.
-     */
-    public void switchToOriginalTab() {
-        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
-        if (!tabs.isEmpty()) {
-            driver.switchTo().window(tabs.get(0));
         }
     }
 }

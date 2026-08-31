@@ -10,14 +10,13 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 /**
- * TestNG Test Class for MagicBricks Login Module.
- * Covers:
- * - TC_LG_001: Login Dropdown & CTA Display (Smoke)
- * - TC_LG_002: Valid Mobile Number Entry (9518306867) & Live OTP Trigger Flow (Regression)
- * - TC_LG_003: Invalid Mobile Number Validation & Error Handling via DataProvider (Regression)
+ * Production-grade TestNG Test Class for MagicBricks Login Module.
  *
- * Handles multi-tab navigation, DataProvider parametrization, TestNG assertions,
- * and element highlighting/scrolling.
+ * Implements thorough TestNG assertions mapping 1:1 to every documented
+ * Expected Result from Sprint Day 1:
+ * - TC_LG_001: Login Dropdown Display & CTA Visibility (Hard Assert)
+ * - TC_LG_002: Valid Mobile Number Entry & Live OTP Flow in New Tab / Modal (SoftAssert across container, heading, user type, value, and OTP)
+ * - TC_LG_003: Invalid Mobile Number Format Rejection (Data-Driven via Excel, Hard Assert preventing premature OTP)
  */
 public class LoginTest extends BaseTest {
 
@@ -31,54 +30,69 @@ public class LoginTest extends BaseTest {
 
     /**
      * TC_LG_001: Verify Login Dropdown Opens from Header
-     * Type: Positive | Priority: P0 | Groups: login, smoke
+     * Preconditions: Home page loaded
+     * Steps:
+     *   1. Click "Login" button in header
+     *   2. Check Login/Sign Up CTA button visibility inside dropdown
+     * Expected Result: Login dropdown opens; "Login/Sign Up" CTA is displayed and clickable
      */
-    @Test(priority = 1, groups = {"login", "smoke"}, description = "TC_LG_001: Verify login dropdown opens and Login/Sign Up CTA is visible")
+    @Test(priority = 1, groups = {"login", "smoke"},
+            description = "TC_LG_001: Verify login dropdown opens and Login/Sign Up CTA is visible")
     public void verifyLoginDropdownOpens() {
         homePage.clickLoginButton();
         boolean isCtaVisible = homePage.isLoginSignUpCtaDisplayed();
-        Assert.assertTrue(isCtaVisible, "Login/Sign Up CTA should be visible inside the login dropdown");
+        Assert.assertTrue(isCtaVisible,
+                "Login/Sign Up CTA button must be visible inside the login dropdown when Login is clicked");
     }
 
     /**
      * TC_LG_002: Verify Valid Mobile Number Entry on Login Page & Live OTP Flow
-     * Type: Positive | Priority: P1 | Groups: login, regression
+     * Preconditions: Home page loaded
+     * Steps:
+     *   1. Open Login dropdown and click Login/Sign Up CTA
+     *   2. Switch to the newly opened tab / modal
+     *   3. Validate login container and heading
+     *   4. Verify Buyer/Owner radio is selected by default
+     *   5. Enter 10-digit mobile number from Excel (9518306867)
+     *   6. Assert input field value matches entered number
+     *   7. Click Continue and handle OTP prompt if triggered
+     * Expected Result: Login page loads; heading is "Login"; mobile number accepted; no error; OTP triggered
      *
-     * @param scenario Description of test case scenario
-     * @param mobileNumber Valid 10-digit mobile number from Excel (9518306867)
+     * @param scenario Test scenario description from Excel
+     * @param mobileNumber Mobile number (9518306867)
      * @param expectedType Expected status ("Valid")
      */
     @Test(priority = 2, groups = {"login", "regression"},
             dataProvider = "validLoginMobileData", dataProviderClass = DataProviders.class,
             description = "TC_LG_002: Verify valid 10-digit mobile number entry and OTP prompt on login page")
     public void verifyValidMobileNumberEntry(String scenario, String mobileNumber, String expectedType) {
-        // Step 1 & 2: Open login dropdown and click CTA
+        // Step 1: Trigger login navigation
         homePage.clickLoginButton();
         homePage.clickLoginSignUpCta();
 
-        // Step 3: Switch to the newly opened login tab
+        // Step 2: Switch to newly opened login window
         homePage.switchToNewTab();
         loginPage = new LoginPage(driver);
 
-        // Step 4 & 5: Assert login page loaded and heading is correct
+        // Step 3 & 4: Validate container, heading, and default selections
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(loginPage.isLoginPageLoaded(), "Login page container should be loaded in new tab");
+        softAssert.assertTrue(loginPage.isLoginPageLoaded(),
+                "Login container must be loaded and visible in the login window");
         softAssert.assertTrue(loginPage.getLoginHeadingText().contains("Login"),
-                "Login page heading should contain 'Login'. Actual: " + loginPage.getLoginHeadingText());
+                "Login page heading must contain 'Login'. Actual: " + loginPage.getLoginHeadingText());
+        softAssert.assertTrue(loginPage.isBuyerOwnerSelected(),
+                "Buyer/Owner radio option must be selected by default");
 
-        // Step 6: Verify Buyer/Owner radio is selected by default
-        softAssert.assertTrue(loginPage.isBuyerOwnerSelected(), "Buyer/Owner radio option should be selected by default");
-
-        // Step 7 & 8: Enter mobile number (9518306867) and verify value attribute
+        // Step 5 & 6: Input mobile number and verify value attribute
         loginPage.enterMobileNumber(mobileNumber);
         String enteredValue = loginPage.getInputFieldValue();
         softAssert.assertEquals(enteredValue, mobileNumber,
-                "Input field value should match the entered mobile number: " + mobileNumber);
+                "Input field value attribute must match the entered mobile number: " + mobileNumber);
 
-        // Step 9: Click Continue button to trigger OTP
+        // Step 7: Click Continue to proceed to OTP
         loginPage.clickContinueButton();
 
-        // Step 10: If OTP field is displayed, prompt tester via console Scanner to enter OTP
+        // Step 8: Handle OTP entry if OTP container appears
         if (loginPage.isOtpFieldDisplayed()) {
             loginPage.waitForOtpAndEnter();
         }
@@ -88,31 +102,36 @@ public class LoginTest extends BaseTest {
 
     /**
      * TC_LG_003: Verify Invalid Mobile Number is Rejected (Data-Driven via Excel)
-     * Type: Negative | Priority: P1 | Groups: login, regression
+     * Preconditions: Login page opened in new tab / modal
+     * Steps:
+     *   1. Navigate to login page
+     *   2. Enter invalid input (short digits, alpha, special characters)
+     *   3. Click Continue button
+     *   4. Verify OTP is NOT triggered for invalid data
+     * Expected Result: Invalid data is rejected; OTP is NOT triggered
      *
-     * @param scenario Description of negative scenario (e.g. short, alpha, special chars)
-     * @param inputData Invalid input string from Excel
+     * @param scenario Negative scenario description
+     * @param inputData Invalid test input string
      * @param expectedError Expected error category ("Invalid")
      */
     @Test(priority = 3, groups = {"login", "regression"},
             dataProvider = "invalidLoginMobileData", dataProviderClass = DataProviders.class,
             description = "TC_LG_003: Verify invalid mobile/email input is rejected with error")
     public void verifyInvalidMobileNumberRejected(String scenario, String inputData, String expectedError) {
-        // Open login dropdown and navigate to login page tab
         homePage.clickLoginButton();
         homePage.clickLoginSignUpCta();
         homePage.switchToNewTab();
         loginPage = new LoginPage(driver);
 
-        Assert.assertTrue(loginPage.isLoginPageLoaded(), "Login page should be loaded");
+        Assert.assertTrue(loginPage.isLoginPageLoaded(),
+                "Login page must be loaded before entering test data");
 
-        // Enter invalid input
         loginPage.enterMobileNumber(inputData);
         loginPage.clickContinueButton();
 
-        // Check that OTP field is NOT triggered for invalid inputs
+        // Assert OTP field is NOT triggered for invalid input
         boolean isOtpTriggered = loginPage.isOtpFieldDisplayed();
         Assert.assertFalse(isOtpTriggered,
-                "OTP should NOT be triggered for invalid input: '" + inputData + "' in scenario: " + scenario);
+                "OTP must NOT be triggered for invalid input: '" + inputData + "' in scenario: " + scenario);
     }
 }

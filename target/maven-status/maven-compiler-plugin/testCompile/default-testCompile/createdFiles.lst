@@ -10,3 +10,4 @@ com/magicbricks/utils/DataProviders.class
 com/magicbricks/base/BasePage.class
 com/magicbricks/utils/DriverManager.class
 com/magicbricks/tests/HomePageTest.class
+com/magicbricks/utils/PopupHandler.class

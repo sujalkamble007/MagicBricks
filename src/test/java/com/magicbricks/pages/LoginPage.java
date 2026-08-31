@@ -11,19 +11,30 @@ import org.openqa.selenium.support.FindBy;
 import java.util.List;
 
 /**
- * Page Object for the MagicBricks Login Page.
+ * Page Object for the MagicBricks Login Page / Modal.
  * URL: https://accounts.magicbricks.com/userauth/login
  *
- * This page opens in a NEW TAB when clicking "Login/Sign Up" from the homepage header.
- * Handles user type selection, email/mobile input, OTP trigger, console-prompted OTP entry,
- * and error validations.
+ * Handles:
+ * - Tab switching / iframe switching (if rendered as an embedded iframe modal)
+ * - User type selection (Buyer/Owner vs. Agent/Builder)
+ * - Mobile/Email input and field management
+ * - Step 1 submission (Continue)
+ * - OTP detection and console-prompted manual entry
+ * - Error message validation
+ *
+ * Follows Single Responsibility Principle (SRP) and Open/Closed Principle (OCP).
  */
 public class LoginPage extends BasePage {
+
+    // Possible iframe locators if login renders inside an embedded iframe modal
+    private static final By LOGIN_IFRAME_LOCATOR = By.cssSelector("iframe[src*='userauth'], iframe#loginIframe, iframe[id*='login'], iframe[title*='login']");
 
     // ==================== CONSTRUCTOR ====================
 
     public LoginPage(WebDriver driver) {
         super(driver);
+        // Resiliently switch into iframe if the login form is rendered inside one
+        switchToFrameIfPresent(LOGIN_IFRAME_LOCATOR);
     }
 
     // ==================== LOGIN FORM ELEMENTS ====================
@@ -117,7 +128,6 @@ public class LoginPage extends BasePage {
 
     /**
      * Enters a mobile number or email into the login input field.
-     * Scrolls to the element and highlights it for tester visibility.
      */
     public void enterMobileNumber(String mobileNumber) {
         WebElement input = prepareElement(emailOrMobileInput);
@@ -145,13 +155,12 @@ public class LoginPage extends BasePage {
     // ==================== CONTINUE / SUBMIT ====================
 
     /**
-     * Clicks Continue or triggers Enter key to proceed to OTP stage.
+     * Clicks Continue or sends Enter key to trigger validation / OTP.
      */
     public void clickContinueButton() {
         try {
             prepareElement(continueButton).click();
         } catch (Exception e) {
-            // Fallback to sending Enter key to the input field
             emailOrMobileInput.sendKeys(Keys.ENTER);
         }
         actionDelay();
@@ -160,11 +169,11 @@ public class LoginPage extends BasePage {
     // ==================== OTP HANDLING ====================
 
     /**
-     * Checks if the OTP input field or OTP container appeared after clicking Continue.
+     * Checks if the OTP input field or container appeared after clicking Continue.
      */
     public boolean isOtpFieldDisplayed() {
         try {
-            List<WebElement> otpElements = driver.findElements(By.cssSelector("input#otp, input#otpInput, input.otp-input, input#userOtp, input[name='otp'], input[id*='otp'], div[class*='otp']"));
+            List<WebElement> otpElements = driver.findElements(By.cssSelector("input#otp, input#otpInput, input.otp-input, input#userOtp, input[name='otp'], input[id*='otp']"));
             for (WebElement el : otpElements) {
                 if (el.isDisplayed()) {
                     return true;
@@ -177,9 +186,7 @@ public class LoginPage extends BasePage {
     }
 
     /**
-     * Waits for the tester to manually enter the OTP from their phone.
-     * Pauses execution via console Scanner prompt, then enters the OTP
-     * into the OTP field and applies an action delay.
+     * Prompts the tester in console to enter the live OTP, then inputs it into the field.
      */
     public void waitForOtpAndEnter() {
         String otp = OtpHelper.waitForOtpInput();
@@ -189,7 +196,6 @@ public class LoginPage extends BasePage {
             otpField.sendKeys(otp);
             actionDelay();
 
-            // Try clicking verify OTP button if available, or press ENTER
             try {
                 if (verifyOtpButton.isDisplayed()) {
                     prepareElement(verifyOtpButton).click();
