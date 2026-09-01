@@ -25,11 +25,13 @@ public class DriverManager {
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--start-maximized");
-        options.addArguments("--disable-notifications");
-        options.addArguments("--disable-infobars");
-        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+        options.addArguments("--remote-allow-origins=*");
+//        options.addArguments("--disable-notifications");
+//        options.addArguments("--disable-infobars");
+//        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
 
         driver = new ChromeDriver(options);
+//        driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(
                 Duration.ofSeconds(ConfigReader.getImplicitWait()));
 
