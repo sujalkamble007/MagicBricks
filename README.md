@@ -115,30 +115,53 @@ cd MagicBricks
 
 ## 6. How to Run via Command Line / Terminal
 
-### 1. Run Home & Login Modules Together (Executes both & generates separate reports):
+### Option 1: Simple Runner Script (`./run.sh`)
 ```bash
-mvn test -DsuiteXmlFile=testng-homelogin.xml
-```
-*Generates:* `reports/TestReport_Home.html` and `reports/TestReport_Login.html`
+# Run Whole Suite (Home + Login + Sell)
+./run.sh
 
-### 2. Run Sell Module Separately (Executes Sell & generates report):
-```bash
-mvn test -DsuiteXmlFile=testng-sell.xml
-```
-*Generates:* `reports/TestReport_Sell.html`
+# Run Home & Login Modules Together
+./run.sh homelogin
 
-### 3. Run All 3 Modules Together (Home + Login + Sell):
+# Run Sell Module Separately
+./run.sh sell
+
+# Run Individual Modules
+./run.sh home
+./run.sh login
+```
+
+---
+
+### Option 2: Maven Profile Commands (Direct `mvn`)
+
+#### 1. Run Complete Test Suite (All Modules):
 ```bash
-mvn test
-# Or explicitly:
-mvn test -DsuiteXmlFile=testng.xml
+mvn clean test
 ```
 *Generates all 3 separate HTML reports:*
 - `reports/TestReport_Home.html`
 - `reports/TestReport_Login.html`
 - `reports/TestReport_Sell.html`
 
-### 4. Run Individual Test Classes:
+#### 2. Run Home & Login Modules Together:
+```bash
+mvn test -P homelogin
+# Or: mvn test -Dhomelogin
+```
+*Executes both and generates:*
+- `reports/TestReport_Home.html`
+- `reports/TestReport_Login.html`
+
+#### 3. Run Sell Module Separately:
+```bash
+mvn test -P sell
+# Or: mvn test -Dsell
+```
+*Executes Sell and generates:*
+- `reports/TestReport_Sell.html`
+
+#### 4. Run Individual Test Classes:
 ```bash
 # Run Home Page Module Only
 mvn test -Dtest=HomePageTest
@@ -146,7 +169,7 @@ mvn test -Dtest=HomePageTest
 # Run Login Module Only
 mvn test -Dtest=LoginTest
 
-# Run Sell Module (Case Study 1) Only
+# Run Sell Module Only
 mvn test -Dtest=SellPageTest
 ```
 

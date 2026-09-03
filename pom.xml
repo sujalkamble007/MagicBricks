@@ -110,4 +110,32 @@
 		</plugins>
 	</build>
 
+	<profiles>
+		<!-- Profile: Home and Login Modules Together -->
+		<profile>
+			<id>homelogin</id>
+			<activation>
+				<property>
+					<name>homelogin</name>
+				</property>
+			</activation>
+			<properties>
+				<suiteXmlFile>testng-homelogin.xml</suiteXmlFile>
+			</properties>
+		</profile>
+
+		<!-- Profile: Sell Module Separately -->
+		<profile>
+			<id>sell</id>
+			<activation>
+				<property>
+					<name>sell</name>
+				</property>
+			</activation>
+			<properties>
+				<suiteXmlFile>testng-sell.xml</suiteXmlFile>
+			</properties>
+		</profile>
+	</profiles>
+
 </project>
