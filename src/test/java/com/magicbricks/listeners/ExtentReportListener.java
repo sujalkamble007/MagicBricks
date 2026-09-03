@@ -14,6 +14,8 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import java.util.Arrays;
+
 /**
  * TestNG listener implementing ITestListener and ISuiteListener.
  * Automatically generates separate, dedicated HTML reports for each module:
@@ -21,11 +23,13 @@ import org.testng.ITestResult;
  * - reports/TestReport_Login.html
  * - reports/TestReport_Sell.html
  *
- * Captures and embeds screenshots into the respective module report.
+ * Prints clear, aesthetically formatted terminal logs with headers,
+ * step execution details, and status summaries for seamless debugging.
  */
 public class ExtentReportListener implements ITestListener, ISuiteListener {
 
     private static final ThreadLocal<ExtentTest> testNode = new ThreadLocal<>();
+    private static final ThreadLocal<Long> testStartTime = new ThreadLocal<>();
 
     private String resolveModuleName(ITestResult result) {
         String className = result.getTestClass().getName();
@@ -37,28 +41,35 @@ public class ExtentReportListener implements ITestListener, ISuiteListener {
 
     @Override
     public void onStart(ISuite suite) {
-        System.out.println("=================================================");
-        System.out.println("Starting Test Suite: " + suite.getName());
-        System.out.println("=================================================");
+        System.out.println("\n" +
+                "================================================================================\n" +
+                "  🚀 STARTING TEST SUITE: " + suite.getName().toUpperCase() + "\n" +
+                "================================================================================\n");
     }
 
     @Override
     public void onFinish(ISuite suite) {
         ExtentManager.flushAllReports();
-        System.out.println("=================================================");
-        System.out.println("Suite Execution Finished. All Module Reports Flushed.");
-        System.out.println("=================================================");
+        System.out.println("\n" +
+                "================================================================================\n" +
+                "  🏁 TEST SUITE COMPLETED: " + suite.getName().toUpperCase() + "\n" +
+                "  📁 All Reports Flushed into reports/ directory\n" +
+                "================================================================================\n");
     }
 
     @Override
     public void onStart(ITestContext context) {
         String moduleName = ExtentManager.normalizeModuleName(context.getName());
         ExtentManager.getExtentReports(moduleName);
-        System.out.println("Starting Module Context: " + context.getName() + " -> Report: " + ExtentManager.getReportPath(moduleName));
+        System.out.println("┌──────────────────────────────────────────────────────────────────────────────┐");
+        System.out.println("│ 📂 MODULE RUN: " + String.format("%-61s", context.getName()) + "│");
+        System.out.println("│ 📄 HTML Report: " + String.format("%-60s", ExtentManager.getReportPath(moduleName)) + "│");
+        System.out.println("└──────────────────────────────────────────────────────────────────────────────┘\n");
     }
 
     @Override
     public void onTestStart(ITestResult result) {
+        testStartTime.set(System.currentTimeMillis());
         String moduleName = resolveModuleName(result);
         ExtentReports extent = ExtentManager.getExtentReports(moduleName);
 
@@ -69,18 +80,31 @@ public class ExtentReportListener implements ITestListener, ISuiteListener {
         }
 
         Object[] params = result.getParameters();
+        String paramStr = "";
         if (params != null && params.length > 0) {
-            testName += " [" + params[0].toString() + "]";
+            paramStr = " [" + Arrays.toString(params).replace("[", "").replace("]", "") + "]";
+            testName += paramStr;
         }
 
         ExtentTest test = extent.createTest(testName, description);
         test.assignCategory(result.getMethod().getGroups());
         testNode.set(test);
         testNode.get().log(Status.INFO, "Started execution of: " + testName);
+
+        // Terminal Visual Header
+        String separator = "─".repeat(78);
+        System.out.println("┌" + separator + "┐");
+        System.out.println("│ 🧪 TEST CASE:   " + String.format("%-62s", testName) + "│");
+        System.out.println("│ 📝 Purpose:     " + String.format("%-62s", truncate(description, 62)) + "│");
+        System.out.println("│ 🏷️  Module:      " + String.format("%-62s", moduleName + " | Groups: " + Arrays.toString(result.getMethod().getGroups())) + "│");
+        System.out.println("└" + separator + "┘");
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
+        long durationMs = System.currentTimeMillis() - (testStartTime.get() != null ? testStartTime.get() : System.currentTimeMillis());
+        double durationSec = durationMs / 1000.0;
+
         testNode.get().log(Status.PASS, "Test PASSED: " + result.getMethod().getMethodName());
 
         try {
@@ -98,10 +122,16 @@ public class ExtentReportListener implements ITestListener, ISuiteListener {
         } catch (Exception e) {
             testNode.get().log(Status.INFO, "Could not capture success screenshot: " + e.getMessage());
         }
+
+        System.out.printf("  ✔ [PASSED] %s (Completed in %.2fs)%n", result.getMethod().getMethodName(), durationSec);
+        System.out.println("─".repeat(80) + "\n");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
+        long durationMs = System.currentTimeMillis() - (testStartTime.get() != null ? testStartTime.get() : System.currentTimeMillis());
+        double durationSec = durationMs / 1000.0;
+
         testNode.get().log(Status.FAIL, "Test FAILED: " + result.getMethod().getMethodName());
         testNode.get().log(Status.FAIL, result.getThrowable());
 
@@ -120,6 +150,12 @@ public class ExtentReportListener implements ITestListener, ISuiteListener {
         } catch (Exception e) {
             testNode.get().log(Status.WARNING, "Failed to attach screenshot: " + e.getMessage());
         }
+
+        System.out.printf("  ✖ [FAILED] %s (Failed after %.2fs)%n", result.getMethod().getMethodName(), durationSec);
+        if (result.getThrowable() != null) {
+            System.out.println("  🚨 Error: " + result.getThrowable().getMessage());
+        }
+        System.out.println("─".repeat(80) + "\n");
     }
 
     @Override
@@ -128,6 +164,9 @@ public class ExtentReportListener implements ITestListener, ISuiteListener {
         if (result.getThrowable() != null) {
             testNode.get().log(Status.SKIP, result.getThrowable());
         }
+
+        System.out.printf("  ⚠ [SKIPPED] %s%n", result.getMethod().getMethodName());
+        System.out.println("─".repeat(80) + "\n");
     }
 
     @Override
@@ -136,7 +175,12 @@ public class ExtentReportListener implements ITestListener, ISuiteListener {
         ExtentReports extent = ExtentManager.getExtentReports(moduleName);
         if (extent != null) {
             extent.flush();
-            System.out.println("Module Report generated at: " + ExtentManager.getReportPath(moduleName));
+            System.out.println("  ✔ " + moduleName + " Module Execution Finished. Report saved to: " + ExtentManager.getReportPath(moduleName) + "\n");
         }
+    }
+
+    private static String truncate(String str, int maxLen) {
+        if (str == null) return "";
+        return str.length() <= maxLen ? str : str.substring(0, maxLen - 3) + "...";
     }
 }
