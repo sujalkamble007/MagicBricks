@@ -5,7 +5,7 @@
   - reports/TestReport_Home.html
   - reports/TestReport_Login.html
 -->
-<suite name="MagicBricks Home & Login Suite" parallel="none" verbose="2">
+<suite name="MagicBricks Home and Login Suite" parallel="none" verbose="2">
 
     <listeners>
         <listener class-name="com.magicbricks.listeners.ExtentReportListener" />
