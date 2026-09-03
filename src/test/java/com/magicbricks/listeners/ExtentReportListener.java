@@ -8,38 +8,66 @@ import com.magicbricks.utils.DriverManager;
 import com.magicbricks.utils.ExtentManager;
 import com.magicbricks.utils.ScreenshotUtil;
 import org.openqa.selenium.WebDriver;
+import org.testng.ISuite;
+import org.testng.ISuiteListener;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
 /**
- * TestNG listener implementing ITestListener.
- * Captures and embeds screenshots into ExtentReports for both passed and failed tests.
- * Decouples reporting and screenshot capture from test classes (SRP & OCP).
+ * TestNG listener implementing ITestListener and ISuiteListener.
+ * Automatically generates separate, dedicated HTML reports for each module:
+ * - reports/TestReport_Home.html
+ * - reports/TestReport_Login.html
+ * - reports/TestReport_Sell.html
  *
- * Attached via testng.xml <listeners> tag.
+ * Captures and embeds screenshots into the respective module report.
  */
-public class ExtentReportListener implements ITestListener {
+public class ExtentReportListener implements ITestListener, ISuiteListener {
 
-    private static ExtentReports extent = ExtentManager.createExtentReports();
     private static final ThreadLocal<ExtentTest> testNode = new ThreadLocal<>();
 
+    private String resolveModuleName(ITestResult result) {
+        String className = result.getTestClass().getName();
+        if (className.contains("HomePage")) return "Home";
+        if (className.contains("Login")) return "Login";
+        if (className.contains("Sell")) return "Sell";
+        return ExtentManager.normalizeModuleName(result.getTestContext().getName());
+    }
+
     @Override
-    public void onStart(ITestContext context) {
+    public void onStart(ISuite suite) {
         System.out.println("=================================================");
-        System.out.println("Starting Suite Execution: " + context.getName());
+        System.out.println("Starting Test Suite: " + suite.getName());
         System.out.println("=================================================");
     }
 
     @Override
+    public void onFinish(ISuite suite) {
+        ExtentManager.flushAllReports();
+        System.out.println("=================================================");
+        System.out.println("Suite Execution Finished. All Module Reports Flushed.");
+        System.out.println("=================================================");
+    }
+
+    @Override
+    public void onStart(ITestContext context) {
+        String moduleName = ExtentManager.normalizeModuleName(context.getName());
+        ExtentManager.getExtentReports(moduleName);
+        System.out.println("Starting Module Context: " + context.getName() + " -> Report: " + ExtentManager.getReportPath(moduleName));
+    }
+
+    @Override
     public void onTestStart(ITestResult result) {
+        String moduleName = resolveModuleName(result);
+        ExtentReports extent = ExtentManager.getExtentReports(moduleName);
+
         String testName = result.getMethod().getMethodName();
         String description = result.getMethod().getDescription();
         if (description == null || description.isEmpty()) {
             description = testName;
         }
 
-        // Include DataProvider arguments in test name for clear report granularity
         Object[] params = result.getParameters();
         if (params != null && params.length > 0) {
             testName += " [" + params[0].toString() + "]";
@@ -55,7 +83,6 @@ public class ExtentReportListener implements ITestListener {
     public void onTestSuccess(ITestResult result) {
         testNode.get().log(Status.PASS, "Test PASSED: " + result.getMethod().getMethodName());
 
-        // Capture and embed screenshot on PASS as visual proof
         try {
             WebDriver driver = DriverManager.getDriver();
             if (driver != null) {
@@ -78,7 +105,6 @@ public class ExtentReportListener implements ITestListener {
         testNode.get().log(Status.FAIL, "Test FAILED: " + result.getMethod().getMethodName());
         testNode.get().log(Status.FAIL, result.getThrowable());
 
-        // Capture and embed failure screenshot
         try {
             WebDriver driver = DriverManager.getDriver();
             if (driver != null) {
@@ -106,12 +132,11 @@ public class ExtentReportListener implements ITestListener {
 
     @Override
     public void onFinish(ITestContext context) {
+        String moduleName = ExtentManager.normalizeModuleName(context.getName());
+        ExtentReports extent = ExtentManager.getExtentReports(moduleName);
         if (extent != null) {
             extent.flush();
+            System.out.println("Module Report generated at: " + ExtentManager.getReportPath(moduleName));
         }
-        System.out.println("=================================================");
-        System.out.println("Suite Execution Finished. ExtentReport generated at:");
-        System.out.println(ExtentManager.getReportPath());
-        System.out.println("=================================================");
     }
 }

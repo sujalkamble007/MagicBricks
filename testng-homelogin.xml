@@ -1,0 +1,40 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<!--
+  MagicBricks Suite - Home and Login Modules
+  Executes Home & Login tests together and generates:
+  - reports/TestReport_Home.html
+  - reports/TestReport_Login.html
+-->
+<suite name="MagicBricks Home & Login Suite" parallel="none" verbose="2">
+
+    <listeners>
+        <listener class-name="com.magicbricks.listeners.ExtentReportListener" />
+    </listeners>
+
+    <test name="Home Page Module Tests" preserve-order="true">
+        <groups>
+            <define name="all-homepage">
+                <include name="homepage" />
+                <include name="smoke" />
+                <include name="regression" />
+            </define>
+        </groups>
+        <classes>
+            <class name="com.magicbricks.tests.HomePageTest" />
+        </classes>
+    </test>
+
+    <test name="Login Module Tests" preserve-order="true">
+        <groups>
+            <define name="all-login">
+                <include name="login" />
+                <include name="smoke" />
+                <include name="regression" />
+            </define>
+        </groups>
+        <classes>
+            <class name="com.magicbricks.tests.LoginTest" />
+        </classes>
+    </test>
+
+</suite>

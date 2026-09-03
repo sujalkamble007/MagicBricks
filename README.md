@@ -115,20 +115,38 @@ cd MagicBricks
 
 ## 6. How to Run via Command Line / Terminal
 
-Execute all test modules via Maven:
+### 1. Run Home & Login Modules Together (Executes both & generates separate reports):
 ```bash
-mvn clean test
+mvn test -DsuiteXmlFile=testng-homelogin.xml
 ```
+*Generates:* `reports/TestReport_Home.html` and `reports/TestReport_Login.html`
 
-Or run individual modules:
+### 2. Run Sell Module Separately (Executes Sell & generates report):
 ```bash
-# Run Home Page Module
+mvn test -DsuiteXmlFile=testng-sell.xml
+```
+*Generates:* `reports/TestReport_Sell.html`
+
+### 3. Run All 3 Modules Together (Home + Login + Sell):
+```bash
+mvn test
+# Or explicitly:
+mvn test -DsuiteXmlFile=testng.xml
+```
+*Generates all 3 separate HTML reports:*
+- `reports/TestReport_Home.html`
+- `reports/TestReport_Login.html`
+- `reports/TestReport_Sell.html`
+
+### 4. Run Individual Test Classes:
+```bash
+# Run Home Page Module Only
 mvn test -Dtest=HomePageTest
 
-# Run Login Module
+# Run Login Module Only
 mvn test -Dtest=LoginTest
 
-# Run Sell Module (Case Study 1)
+# Run Sell Module (Case Study 1) Only
 mvn test -Dtest=SellPageTest
 ```
 
@@ -136,11 +154,20 @@ mvn test -Dtest=SellPageTest
 
 ## 7. Reports & Output Locations
 
-After test execution, both reporting engines generate output automatically:
+Each module generates its own **dedicated HTML report** with interactive charts, execution logs, and embedded full-resolution screenshots:
 
-1. **ExtentReports HTML Report (With Embedded Screenshots & Interactive Charts)**:
-   - Location: `reports/TestReport_HomeLoginSell_<yyyy-MM-dd_HH-mm-ss>.html`
-   - Features: Visual summary dashboard, category filtering, execution logs, and full-resolution screenshot snapshots attached to every test case.
+1. **Dedicated Module ExtentReports**:
+   - 🏠 **Home Page Report**: `reports/TestReport_Home.html`
+   - 🔐 **Login Module Report**: `reports/TestReport_Login.html`
+   - 🏢 **Sell Module Report**: `reports/TestReport_Sell.html`
+
+2. **TestNG Default Reports**:
+   - Location: `target/surefire-reports/emailable-report.html`
+   - Location: `target/surefire-reports/testng-results.xml`
+
+3. **QA Test Documents**:
+   - Location: `Test_Documents/MagicBricks_Sell_Module_Test_Scenarios_and_Test_Cases.xlsx`
+   - Location: `Test_Documents/MagicBricks_Sell_Module_Test_Document.md`
 
 2. **TestNG Default Reports**:
    - Location: `target/surefire-reports/emailable-report.html`
