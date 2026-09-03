@@ -4,6 +4,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
+import com.magicbricks.utils.ConsoleLogger;
 import com.magicbricks.utils.DriverManager;
 import com.magicbricks.utils.ExtentManager;
 import com.magicbricks.utils.ScreenshotUtil;
@@ -91,13 +92,8 @@ public class ExtentReportListener implements ITestListener, ISuiteListener {
         testNode.set(test);
         testNode.get().log(Status.INFO, "Started execution of: " + testName);
 
-        // Terminal Visual Header
-        String separator = "─".repeat(78);
-        System.out.println("┌" + separator + "┐");
-        System.out.println("│ 🧪 TEST CASE:   " + String.format("%-62s", testName) + "│");
-        System.out.println("│ 📝 Purpose:     " + String.format("%-62s", truncate(description, 62)) + "│");
-        System.out.println("│ 🏷️  Module:      " + String.format("%-62s", moduleName + " | Groups: " + Arrays.toString(result.getMethod().getGroups())) + "│");
-        System.out.println("└" + separator + "┘");
+        // Terminal Visual Header with ANSI Colors & prominent Test Case ID
+        ConsoleLogger.logTestStart(testName, description, moduleName, Arrays.toString(result.getMethod().getGroups()));
     }
 
     @Override
@@ -123,8 +119,7 @@ public class ExtentReportListener implements ITestListener, ISuiteListener {
             testNode.get().log(Status.INFO, "Could not capture success screenshot: " + e.getMessage());
         }
 
-        System.out.printf("  ✔ [PASSED] %s (Completed in %.2fs)%n", result.getMethod().getMethodName(), durationSec);
-        System.out.println("─".repeat(80) + "\n");
+        ConsoleLogger.logSuccess(result.getMethod().getMethodName(), durationSec);
     }
 
     @Override
@@ -151,11 +146,8 @@ public class ExtentReportListener implements ITestListener, ISuiteListener {
             testNode.get().log(Status.WARNING, "Failed to attach screenshot: " + e.getMessage());
         }
 
-        System.out.printf("  ✖ [FAILED] %s (Failed after %.2fs)%n", result.getMethod().getMethodName(), durationSec);
-        if (result.getThrowable() != null) {
-            System.out.println("  🚨 Error: " + result.getThrowable().getMessage());
-        }
-        System.out.println("─".repeat(80) + "\n");
+        String errMsg = result.getThrowable() != null ? result.getThrowable().getMessage() : "";
+        ConsoleLogger.logFailure(result.getMethod().getMethodName(), errMsg, durationSec);
     }
 
     @Override
@@ -165,8 +157,7 @@ public class ExtentReportListener implements ITestListener, ISuiteListener {
             testNode.get().log(Status.SKIP, result.getThrowable());
         }
 
-        System.out.printf("  ⚠ [SKIPPED] %s%n", result.getMethod().getMethodName());
-        System.out.println("─".repeat(80) + "\n");
+        ConsoleLogger.logSkipped(result.getMethod().getMethodName());
     }
 
     @Override
@@ -174,8 +165,7 @@ public class ExtentReportListener implements ITestListener, ISuiteListener {
         String moduleName = ExtentManager.normalizeModuleName(context.getName());
         ExtentReports extent = ExtentManager.getExtentReports(moduleName);
         if (extent != null) {
-            extent.flush();
-            System.out.println("  ✔ " + moduleName + " Module Execution Finished. Report saved to: " + ExtentManager.getReportPath(moduleName) + "\n");
+            ConsoleLogger.logReportGenerated(moduleName, ExtentManager.getReportPath(moduleName));
         }
     }
 

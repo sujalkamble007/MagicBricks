@@ -3,6 +3,7 @@ package com.magicbricks.tests;
 import com.magicbricks.base.BaseTest;
 import com.magicbricks.pages.HomePage;
 import com.magicbricks.pages.LoginPage;
+import com.magicbricks.utils.ConsoleLogger;
 import com.magicbricks.utils.DataProviders;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -37,10 +38,10 @@ public class LoginTest extends BaseTest {
     @Test(priority = 1, groups = {"login", "smoke"},
             description = "TC_LG_001: Verify login dropdown opens and Login/Sign Up CTA is visible")
     public void verifyLoginDropdownOpens() {
-        System.out.println("    ✦ [Step 1] Clicking 'Login' header trigger button...");
+        ConsoleLogger.logStep(1, "Clicking 'Login' header trigger button...");
         homePage.clickLoginButton();
 
-        System.out.println("    ✦ [Step 2] Verifying 'Login/Sign Up' CTA button is displayed inside dropdown...");
+        ConsoleLogger.logStep(2, "Verifying 'Login/Sign Up' CTA button is displayed inside dropdown...");
         boolean isCtaVisible = homePage.isLoginSignUpCtaDisplayed();
         Assert.assertTrue(isCtaVisible,
                 "Login/Sign Up CTA button must be visible inside the login dropdown when Login is clicked");
@@ -63,36 +64,36 @@ public class LoginTest extends BaseTest {
             dataProvider = "validLoginMobileData", dataProviderClass = DataProviders.class,
             description = "TC_LG_002: Verify valid 10-digit mobile number entry and OTP prompt on login page")
     public void verifyValidMobileNumberEntry(String scenario, String mobileNumber, String expectedType) {
-        System.out.println("    ✦ [Step 1] Opening Login dropdown and clicking 'Login/Sign Up' CTA...");
+        ConsoleLogger.logStep(1, "Opening Login dropdown and clicking 'Login/Sign Up' CTA...");
         homePage.clickLoginButton();
         homePage.clickLoginSignUpCta();
 
-        System.out.println("    ✦ [Step 2] Switching window focus to newly opened Login tab...");
+        ConsoleLogger.logStep(2, "Switching window focus to newly opened Login tab...");
         homePage.switchToNewTab();
         loginPage = new LoginPage(driver);
 
         SoftAssert softAssert = new SoftAssert();
-        System.out.println("    ✦ [Step 3] Validating Login container and 'Login' heading...");
+        ConsoleLogger.logStep(3, "Validating Login container and 'Login' heading...");
         softAssert.assertTrue(loginPage.isLoginPageLoaded(),
                 "Login container must be loaded and visible in the login window");
         softAssert.assertTrue(loginPage.getLoginHeadingText().contains("Login"),
                 "Login page heading must contain 'Login'. Actual: " + loginPage.getLoginHeadingText());
 
-        System.out.println("    ✦ [Step 4] Confirming 'Buyer/Owner' radio option is selected by default...");
+        ConsoleLogger.logStep(4, "Confirming 'Buyer/Owner' radio option is selected by default...");
         softAssert.assertTrue(loginPage.isBuyerOwnerSelected(),
                 "Buyer/Owner radio option must be selected by default");
 
-        System.out.println("    ✦ [Step 5] Entering valid 10-digit mobile number: " + mobileNumber + "...");
+        ConsoleLogger.logStep(5, "Entering valid 10-digit mobile number: " + mobileNumber + "...");
         loginPage.enterMobileNumber(mobileNumber);
         String enteredValue = loginPage.getInputFieldValue();
         softAssert.assertEquals(enteredValue, mobileNumber,
                 "Input field value attribute must match the entered mobile number: " + mobileNumber);
 
-        System.out.println("    ✦ [Step 6] Clicking 'Continue' button to proceed to OTP verification...");
+        ConsoleLogger.logStep(6, "Clicking 'Continue' button to proceed to OTP verification...");
         loginPage.clickContinueButton();
 
         if (loginPage.isOtpFieldDisplayed()) {
-            System.out.println("    ✦ [Step 7] OTP field detected; handling interactive live OTP entry hook...");
+            ConsoleLogger.logStep(7, "OTP field detected; handling interactive live OTP entry hook...");
             loginPage.waitForOtpAndEnter();
         }
 
@@ -113,7 +114,7 @@ public class LoginTest extends BaseTest {
             dataProvider = "invalidLoginMobileData", dataProviderClass = DataProviders.class,
             description = "TC_LG_003: Verify invalid mobile/email input is rejected with error")
     public void verifyInvalidMobileNumberRejected(String scenario, String inputData, String expectedError) {
-        System.out.println("    ✦ [Step 1] Navigating to Login page for scenario: " + scenario + "...");
+        ConsoleLogger.logStep(1, "Navigating to Login page for scenario: " + scenario + "...");
         homePage.clickLoginButton();
         homePage.clickLoginSignUpCta();
         homePage.switchToNewTab();
@@ -122,13 +123,13 @@ public class LoginTest extends BaseTest {
         Assert.assertTrue(loginPage.isLoginPageLoaded(),
                 "Login page must be loaded before entering test data");
 
-        System.out.println("    ✦ [Step 2] Entering invalid input data: '" + inputData + "'...");
+        ConsoleLogger.logStep(2, "Entering invalid input data: '" + inputData + "'...");
         loginPage.enterMobileNumber(inputData);
 
-        System.out.println("    ✦ [Step 3] Clicking 'Continue' button...");
+        ConsoleLogger.logStep(3, "Clicking 'Continue' button...");
         loginPage.clickContinueButton();
 
-        System.out.println("    ✦ [Step 4] Asserting OTP screen is NOT triggered for invalid input...");
+        ConsoleLogger.logStep(4, "Asserting OTP screen is NOT triggered for invalid input...");
         boolean isOtpTriggered = loginPage.isOtpFieldDisplayed();
         Assert.assertFalse(isOtpTriggered,
                 "OTP must NOT be triggered for invalid input: '" + inputData + "' in scenario: " + scenario);

@@ -7,6 +7,9 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
+import org.testng.annotations.Listeners;
+import com.magicbricks.listeners.ExtentReportListener;
+
 /**
  * Base class for all Test classes. Provides:
  * - WebDriver setup before each test method
@@ -16,6 +19,7 @@ import org.testng.annotations.BeforeMethod;
  * All test classes (HomePageTest, LoginTest, etc.) extend this.
  * Follows Open/Closed Principle (OCP).
  */
+@Listeners(ExtentReportListener.class)
 public class BaseTest {
 
     protected WebDriver driver;

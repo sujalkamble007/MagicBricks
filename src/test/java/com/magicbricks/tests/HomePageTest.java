@@ -2,6 +2,7 @@ package com.magicbricks.tests;
 
 import com.magicbricks.base.BaseTest;
 import com.magicbricks.pages.HomePage;
+import com.magicbricks.utils.ConsoleLogger;
 import com.magicbricks.utils.DataProviders;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -36,9 +37,9 @@ public class HomePageTest extends BaseTest {
     @Test(priority = 1, groups = {"homepage", "smoke"},
             description = "TC_HP_001: Verify home page title contains MagicBricks")
     public void verifyHomePageTitle() {
-        System.out.println("    ✦ [Step 1] Retrieving MagicBricks home page title...");
+        ConsoleLogger.logStep(1, "Retrieving MagicBricks home page title...");
         String title = homePage.getPageTitle();
-        System.out.println("    ✦ [Step 2] Asserting title contains 'MagicBricks' or 'Real Estate' (Actual: " + title + ")...");
+        ConsoleLogger.logStep(2, "Asserting title contains 'MagicBricks' or 'Real Estate' (Actual: " + title + ")...");
         Assert.assertNotNull(title, "Page title must not be null");
         Assert.assertTrue(title.contains("MagicBricks") || title.contains("Real Estate"),
                 "Page title should contain 'MagicBricks' or 'Real Estate'. Actual title: " + title);
@@ -53,20 +54,20 @@ public class HomePageTest extends BaseTest {
     public void verifyHeaderElementsVisibility() {
         SoftAssert softAssert = new SoftAssert();
 
-        System.out.println("    ✦ [Step 1] Validating MagicBricks header logo visibility...");
+        ConsoleLogger.logStep(1, "Validating MagicBricks header logo visibility...");
         softAssert.assertTrue(homePage.isLogoDisplayed(),
                 "MagicBricks Logo must be visible in the header");
 
-        System.out.println("    ✦ [Step 2] Validating Login button visibility in header...");
+        ConsoleLogger.logStep(2, "Validating Login button visibility in header...");
         softAssert.assertTrue(homePage.isLoginButtonDisplayed(),
                 "Login button must be visible in the header");
 
-        System.out.println("    ✦ [Step 3] Validating 'Post Property' free listing CTA...");
+        ConsoleLogger.logStep(3, "Validating 'Post Property' free listing CTA...");
         softAssert.assertTrue(homePage.isPostPropertyDisplayed(),
                 "Post Property link must be visible in the header");
 
         String cityText = homePage.getCitySelectorText();
-        System.out.println("    ✦ [Step 4] Validating default City selector (Current City: " + cityText + ")...");
+        ConsoleLogger.logStep(4, "Validating default City selector (Current City: " + cityText + ")...");
         softAssert.assertNotNull(cityText, "City selector text must not be null");
         softAssert.assertFalse(cityText.trim().isEmpty(),
                 "City selector must display a non-empty city name (e.g. Bangalore)");
@@ -83,11 +84,11 @@ public class HomePageTest extends BaseTest {
     public void verifySearchTabsPresenceAndDefaultState() {
         SoftAssert softAssert = new SoftAssert();
 
-        System.out.println("    ✦ [Step 1] Verifying 'Buy' search tab is active by default...");
+        ConsoleLogger.logStep(1, "Verifying 'Buy' search tab is active by default...");
         softAssert.assertTrue(homePage.isSearchBuyTabActive(),
                 "Buy tab must be marked active by default on home page load");
 
-        System.out.println("    ✦ [Step 2] Verifying 'PG', 'Plot', and 'Commercial' search category tabs are visible...");
+        ConsoleLogger.logStep(2, "Verifying 'PG', 'Plot', and 'Commercial' search category tabs are visible...");
         softAssert.assertTrue(homePage.isSearchPgTabDisplayed(),
                 "PG tab must be displayed in search categories");
         softAssert.assertTrue(homePage.isSearchPlotTabDisplayed(),
@@ -106,13 +107,13 @@ public class HomePageTest extends BaseTest {
             dataProvider = "searchLocalitiesData", dataProviderClass = DataProviders.class,
             description = "TC_HP_004: Verify autocomplete suggestions appear when typing in search")
     public void verifySearchAutocompleteTriggers(String locality, String expectedKeyword) {
-        System.out.println("    ✦ [Step 1] Clicking search input field...");
+        ConsoleLogger.logStep(1, "Clicking search input field...");
         homePage.clickSearchInput();
 
-        System.out.println("    ✦ [Step 2] Typing locality query: '" + locality + "' into search...");
+        ConsoleLogger.logStep(2, "Typing locality query: '" + locality + "' into search...");
         homePage.enterSearchText(locality);
 
-        System.out.println("    ✦ [Step 3] Verifying autocomplete suggestions dropdown is displayed...");
+        ConsoleLogger.logStep(3, "Verifying autocomplete suggestions dropdown is displayed...");
         boolean isSuggestionsVisible = homePage.isSuggestionsDropdownDisplayed();
         Assert.assertTrue(isSuggestionsVisible,
                 "Autocomplete suggestions dropdown must become visible after typing locality: '" + locality + "'");
@@ -125,18 +126,18 @@ public class HomePageTest extends BaseTest {
     @Test(priority = 5, groups = {"homepage", "regression"},
             description = "TC_HP_005: Verify Buy/Rent tab switching toggles active state")
     public void verifyTabSwitchingBuyRent() {
-        System.out.println("    ✦ [Step 1] Verifying 'Buy' tab is active initially...");
+        ConsoleLogger.logStep(1, "Verifying 'Buy' tab is active initially...");
         Assert.assertTrue(homePage.isSearchBuyTabActive(),
                 "Buy tab must be active initially before any click");
 
-        System.out.println("    ✦ [Step 2] Switching to 'Rent' tab and asserting toggle state...");
+        ConsoleLogger.logStep(2, "Switching to 'Rent' tab and asserting toggle state...");
         homePage.clickRentTab();
         Assert.assertTrue(homePage.isSearchRentTabActive(),
                 "Rent tab must become active after being clicked");
         Assert.assertFalse(homePage.isSearchBuyTabActive(),
                 "Buy tab must not remain active after Rent is selected");
 
-        System.out.println("    ✦ [Step 3] Switching back to 'Buy' tab and confirming state...");
+        ConsoleLogger.logStep(3, "Switching back to 'Buy' tab and confirming state...");
         homePage.clickBuyTab();
         Assert.assertTrue(homePage.isSearchBuyTabActive(),
                 "Buy tab must become active again after being clicked");
@@ -153,11 +154,11 @@ public class HomePageTest extends BaseTest {
     public void verifyMidPageSectionScrollAndContent() {
         SoftAssert softAssert = new SoftAssert();
 
-        System.out.println("    ✦ [Step 1] Scrolling smoothly down to mid-page section container...");
+        ConsoleLogger.logStep(1, "Scrolling smoothly down to mid-page section container...");
         boolean isContainerVisible = homePage.isMidSectionContainerDisplayed();
         softAssert.assertTrue(isContainerVisible, "Mid-page section container must be visible after scrolling");
 
-        System.out.println("    ✦ [Step 2] Retrieving and validating mid-page section heading...");
+        ConsoleLogger.logStep(2, "Retrieving and validating mid-page section heading...");
         String headingText = homePage.getMidSectionHeadingText();
         softAssert.assertFalse(headingText.isEmpty(), "Mid-page section heading text must not be empty");
 
@@ -173,11 +174,11 @@ public class HomePageTest extends BaseTest {
     public void verifyFooterSectionScrollAndLinks() {
         SoftAssert softAssert = new SoftAssert();
 
-        System.out.println("    ✦ [Step 1] Scrolling all the way down to bottom footer area...");
+        ConsoleLogger.logStep(1, "Scrolling all the way down to bottom footer area...");
         boolean isFooterVisible = homePage.isFooterContainerDisplayed();
         softAssert.assertTrue(isFooterVisible, "Footer container must be visible after scrolling to the bottom");
 
-        System.out.println("    ✦ [Step 2] Validating footer links and copyright / title locators...");
+        ConsoleLogger.logStep(2, "Validating footer links and copyright / title locators...");
         String footerLinkText = homePage.getFooterLinkOrHeadingText();
         softAssert.assertFalse(footerLinkText.isEmpty(), "Footer title or link text must not be empty");
 
@@ -191,13 +192,13 @@ public class HomePageTest extends BaseTest {
     @Test(priority = 8, groups = {"homepage", "regression"},
             description = "TC_HP_008: Verify smooth scroll to bottom and return to top")
     public void verifyScrollToTopBehavior() {
-        System.out.println("    ✦ [Step 1] Scrolling smoothly to bottom footer...");
+        ConsoleLogger.logStep(1, "Scrolling smoothly to bottom footer...");
         homePage.isFooterContainerDisplayed();
 
-        System.out.println("    ✦ [Step 2] Smoothly scrolling all the way back up to top of page...");
+        ConsoleLogger.logStep(2, "Smoothly scrolling all the way back up to top of page...");
         homePage.scrollToTop();
 
-        System.out.println("    ✦ [Step 3] Asserting MagicBricks header logo is in full viewport view...");
+        ConsoleLogger.logStep(3, "Asserting MagicBricks header logo is in full viewport view...");
         Assert.assertTrue(homePage.isLogoDisplayed(),
                 "MagicBricks Logo must be visible after returning to top of page");
     }

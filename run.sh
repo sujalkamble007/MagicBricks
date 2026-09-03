@@ -17,25 +17,29 @@ else
   PROJECT_DIR="$DIR"
 fi
 
+run_mvn() {
+  mvn -Dstyle.color=always "$@" 2>&1 | grep -v -E "sun.misc.Unsafe|HiddenClassDefiner|maintainers of class|removed in a future release|package sun.misc not in"
+}
+
 case "$1" in
   homelogin|home-login)
     echo "▶ Running Home and Login Modules..."
-    mvn -f "$PROJECT_DIR" test -P homelogin
+    run_mvn -f "$PROJECT_DIR" test -P homelogin
     ;;
   sell)
     echo "▶ Running Sell Module..."
-    mvn -f "$PROJECT_DIR" test -P sell
+    run_mvn -f "$PROJECT_DIR" test -P sell
     ;;
   home)
     echo "▶ Running Home Page Module..."
-    mvn -f "$PROJECT_DIR" test -Dtest=HomePageTest
+    run_mvn -f "$PROJECT_DIR" test -Dtest=HomePageTest
     ;;
   login)
     echo "▶ Running Login Module..."
-    mvn -f "$PROJECT_DIR" test -Dtest=LoginTest
+    run_mvn -f "$PROJECT_DIR" test -Dtest=LoginTest
     ;;
   *)
     echo "▶ Running Complete Automation Suite (All Modules)..."
-    mvn -f "$PROJECT_DIR" clean test
+    run_mvn -f "$PROJECT_DIR" clean test
     ;;
 esac

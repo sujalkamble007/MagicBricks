@@ -81,6 +81,14 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Log4j to SLF4J Bridge: Routes Apache POI logging cleanly to SLF4J and silences Log4j2 warning -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-to-slf4j</artifactId>
+			<version>2.23.1</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -105,6 +113,11 @@
 					<suiteXmlFiles>
 						<suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
 					</suiteXmlFiles>
+					<systemPropertyVariables>
+						<webdriver.chrome.silentOutput>true</webdriver.chrome.silentOutput>
+						<log4j2.StatusLogger.level>OFF</log4j2.StatusLogger.level>
+						<java.util.logging.config.file>${project.basedir}/src/test/resources/logging.properties</java.util.logging.config.file>
+					</systemPropertyVariables>
 				</configuration>
 			</plugin>
 		</plugins>

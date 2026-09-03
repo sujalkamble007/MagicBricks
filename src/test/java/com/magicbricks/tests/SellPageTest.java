@@ -7,6 +7,7 @@ import com.magicbricks.pages.FindAgentPage;
 import com.magicbricks.pages.HomePage;
 import com.magicbricks.pages.RatesAndTrendsPage;
 import com.magicbricks.pages.SellDropdownPage;
+import com.magicbricks.utils.ConsoleLogger;
 import com.magicbricks.utils.DataProviders;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -50,15 +51,15 @@ public class SellPageTest extends BaseTest {
     @Test(priority = 1, groups = {"sell", "smoke"},
             description = "TC_SELL_001: Verify all primary menu links in Sell dropdown are enabled and clickable")
     public void verifyAllSellDropdownElementsClickable() {
-        System.out.println("    ✦ [Step 1] Hovering on 'Sell' header tab to open dropdown menu...");
+        ConsoleLogger.logStep(1, "Hovering on 'Sell' header tab to open dropdown menu...");
         sellDropdownPage.hoverOnSellTab();
         Assert.assertTrue(sellDropdownPage.isSellDropdownDisplayed(),
                 "Sell dropdown must open upon hovering over Sell tab");
 
-        System.out.println("    ✦ [Step 2] Highlighting primary dropdown sections (Owner, Agent & Builder, Tools)...");
+        ConsoleLogger.logStep(2, "Highlighting primary dropdown sections (Owner, Agent & Builder, Tools)...");
         sellDropdownPage.highlightAllDropdownSections();
 
-        System.out.println("    ✦ [Step 3] Verifying Post Property, Property Valuation & Find an Agent links...");
+        ConsoleLogger.logStep(3, "Verifying Post Property, Property Valuation & Find an Agent links...");
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(sellDropdownPage.isPostPropertyLinkVisible(),
                 "Post Property link must be visible and clickable");
@@ -68,7 +69,7 @@ public class SellPageTest extends BaseTest {
                 "Find an Agent link must be visible and clickable");
 
         int totalOptions = sellDropdownPage.getDropdownLinkCount();
-        System.out.println("    ✦ [Step 4] Asserting total link count (" + totalOptions + " options found and verified)...");
+        ConsoleLogger.logStep(4, "Asserting total link count (" + totalOptions + " options found and verified)...");
         softAssert.assertTrue(totalOptions >= 5,
                 "Sell dropdown must contain at least 5 navigation options. Found: " + totalOptions);
 
@@ -82,14 +83,14 @@ public class SellPageTest extends BaseTest {
     @Test(priority = 2, groups = {"sell", "regression"},
             description = "TC_SELL_002: Verify navigation to Rates & Trends page from Sell dropdown")
     public void verifyRatesAndTrendsNavigation() {
-        System.out.println("    ✦ [Step 1] Hovering on 'Sell' tab and clicking 'Rates & Trends' link...");
+        ConsoleLogger.logStep(1, "Hovering on 'Sell' tab and clicking 'Rates & Trends' link...");
         sellDropdownPage.hoverOnSellTab();
         sellDropdownPage.clickRatesAndTrendsLink();
 
-        System.out.println("    ✦ [Step 2] Switching window focus to newly opened Rates & Trends browser tab...");
+        ConsoleLogger.logStep(2, "Switching window focus to newly opened Rates & Trends browser tab...");
         sellDropdownPage.switchToNewTab();
 
-        System.out.println("    ✦ [Step 3] Validating page URL, banner heading, and breadcrumb navigation...");
+        ConsoleLogger.logStep(3, "Validating page URL, banner heading, and breadcrumb navigation...");
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(driver.getCurrentUrl().contains("propertyRates"),
                 "URL must contain propertyRates. Actual: " + driver.getCurrentUrl());
@@ -98,7 +99,7 @@ public class SellPageTest extends BaseTest {
         softAssert.assertTrue(ratesAndTrendsPage.isBreadcrumbDisplayed(),
                 "Breadcrumb 'Property Rates & Trends' must be displayed");
 
-        System.out.println("    ✦ [Step 4] Closing child tab and returning focus to Home window...");
+        ConsoleLogger.logStep(4, "Closing child tab and returning focus to Home window...");
         sellDropdownPage.closeCurrentTabAndSwitchBack();
         softAssert.assertAll();
     }
@@ -110,22 +111,22 @@ public class SellPageTest extends BaseTest {
     @Test(priority = 3, groups = {"sell", "regression"},
             description = "TC_SELL_003: Verify switching between Residential and Commercial tabs on Rates & Trends")
     public void verifyRatesResidentialCommercialTabSwitching() {
-        System.out.println("    ✦ [Step 1] Navigating to Rates & Trends page from Sell dropdown...");
+        ConsoleLogger.logStep(1, "Navigating to Rates & Trends page from Sell dropdown...");
         sellDropdownPage.hoverOnSellTab();
         sellDropdownPage.clickRatesAndTrendsLink();
         sellDropdownPage.switchToNewTab();
 
         SoftAssert softAssert = new SoftAssert();
-        System.out.println("    ✦ [Step 2] Verifying default 'Residential' tab is selected...");
+        ConsoleLogger.logStep(2, "Verifying default 'Residential' tab is selected...");
         softAssert.assertTrue(ratesAndTrendsPage.isResidentialTabDisplayed(),
                 "Residential tab should be displayed by default");
 
-        System.out.println("    ✦ [Step 3] Clicking 'Commercial' tab and verifying active highlight state...");
+        ConsoleLogger.logStep(3, "Clicking 'Commercial' tab and verifying active highlight state...");
         ratesAndTrendsPage.clickCommercialTab();
         softAssert.assertTrue(ratesAndTrendsPage.isCommercialTabActive(),
                 "Commercial tab should become active after click");
 
-        System.out.println("    ✦ [Step 4] Clicking back to 'Residential' tab and confirming state restoration...");
+        ConsoleLogger.logStep(4, "Clicking back to 'Residential' tab and confirming state restoration...");
         ratesAndTrendsPage.clickResidentialTab();
         softAssert.assertTrue(ratesAndTrendsPage.isResidentialTabDisplayed(),
                 "Residential tab should be displayed upon switching back");
@@ -142,20 +143,20 @@ public class SellPageTest extends BaseTest {
             dataProvider = "sellCityData", dataProviderClass = DataProviders.class,
             description = "TC_SELL_004: Verify selecting a city trend from Rates & Trends table")
     public void verifyRatesCityTrendsSelection(String cityName, String expectedURLFragment) {
-        System.out.println("    ✦ [Step 1] Navigating to Rates & Trends page for City: " + cityName + "...");
+        ConsoleLogger.logStep(1, "Navigating to Rates & Trends page for City: " + cityName + "...");
         sellDropdownPage.hoverOnSellTab();
         sellDropdownPage.clickRatesAndTrendsLink();
         sellDropdownPage.switchToNewTab();
 
-        System.out.println("    ✦ [Step 2] Selecting city link: '" + cityName + "' from the price trends matrix...");
+        ConsoleLogger.logStep(2, "Selecting city link: '" + cityName + "' from the price trends matrix...");
         ratesAndTrendsPage.selectCityLink(cityName);
 
-        System.out.println("    ✦ [Step 3] Verifying property price trends data is displayed for " + cityName + "...");
+        ConsoleLogger.logStep(3, "Verifying property price trends data is displayed for " + cityName + "...");
         boolean isCityFound = ratesAndTrendsPage.isCityTrendTableDisplayed(cityName);
         Assert.assertTrue(isCityFound,
                 "Price trend information must be displayed for city: " + cityName);
 
-        System.out.println("    ✦ [Step 4] Closing child tab and returning to Home window...");
+        ConsoleLogger.logStep(4, "Closing child tab and returning to Home window...");
         sellDropdownPage.closeCurrentTabAndSwitchBack();
     }
 
@@ -166,14 +167,14 @@ public class SellPageTest extends BaseTest {
     @Test(priority = 5, groups = {"sell", "regression"},
             description = "TC_SELL_005: Verify navigation to Find an Agent page from Sell dropdown")
     public void verifyFindAgentNavigation() {
-        System.out.println("    ✦ [Step 1] Hovering on 'Sell' tab and clicking 'Find an Agent' link...");
+        ConsoleLogger.logStep(1, "Hovering on 'Sell' tab and clicking 'Find an Agent' link...");
         sellDropdownPage.hoverOnSellTab();
         sellDropdownPage.clickFindAnAgentLink();
 
-        System.out.println("    ✦ [Step 2] Switching to Find an Agent browser tab...");
+        ConsoleLogger.logStep(2, "Switching to Find an Agent browser tab...");
         sellDropdownPage.switchToNewTab();
 
-        System.out.println("    ✦ [Step 3] Validating 'Agents in City' heading and 'Top Agents' tab visibility...");
+        ConsoleLogger.logStep(3, "Validating 'Agents in City' heading and 'Top Agents' tab visibility...");
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(driver.getCurrentUrl().contains("agent"),
                 "URL must contain 'agent'. Actual: " + driver.getCurrentUrl());
@@ -182,7 +183,7 @@ public class SellPageTest extends BaseTest {
         softAssert.assertTrue(findAgentPage.isTopAgentsTabDisplayed(),
                 "'Top Agents' tab must be displayed");
 
-        System.out.println("    ✦ [Step 4] Closing agent tab and returning to Home window...");
+        ConsoleLogger.logStep(4, "Closing agent tab and returning to Home window...");
         sellDropdownPage.closeCurrentTabAndSwitchBack();
         softAssert.assertAll();
     }
@@ -194,20 +195,20 @@ public class SellPageTest extends BaseTest {
     @Test(priority = 6, groups = {"sell", "regression"},
             description = "TC_SELL_006: Verify agent card details, Preferred Agent badge, and statistics")
     public void verifyAgentCardDetailsAndPreferredBadge() {
-        System.out.println("    ✦ [Step 1] Navigating to Find an Agent directory...");
+        ConsoleLogger.logStep(1, "Navigating to Find an Agent directory...");
         sellDropdownPage.hoverOnSellTab();
         sellDropdownPage.clickFindAnAgentLink();
         sellDropdownPage.switchToNewTab();
 
-        System.out.println("    ✦ [Step 2] Locating and highlighting the first top agent card...");
+        ConsoleLogger.logStep(2, "Locating and highlighting the first top agent card...");
         findAgentPage.highlightFirstAgentCard();
 
-        System.out.println("    ✦ [Step 3] Validating 'PREFERRED AGENT' badge and trust metrics...");
+        ConsoleLogger.logStep(3, "Validating 'PREFERRED AGENT' badge and trust metrics...");
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(findAgentPage.isPreferredAgentBadgeDisplayed(),
                 "'PREFERRED AGENT - Trusted by Many Users' badge must be displayed");
 
-        System.out.println("    ✦ [Step 4] Validating 'DEALS CLOSED' and 'TEAM MEMBERS' statistics...");
+        ConsoleLogger.logStep(4, "Validating 'DEALS CLOSED' and 'TEAM MEMBERS' statistics...");
         softAssert.assertTrue(findAgentPage.isDealsClosedStatDisplayed(),
                 "'DEALS CLOSED' statistic must be displayed on agent card");
         softAssert.assertTrue(findAgentPage.isTeamMembersStatDisplayed(),
@@ -226,21 +227,21 @@ public class SellPageTest extends BaseTest {
     @Test(priority = 7, groups = {"sell", "regression"},
             description = "TC_SELL_007: Verify Developer Lounge brand store and developer cards")
     public void verifyDeveloperLoungeBrandStore() {
-        System.out.println("    ✦ [Step 1] Hovering on 'Sell' tab and clicking 'Developer Lounge' link...");
+        ConsoleLogger.logStep(1, "Hovering on 'Sell' tab and clicking 'Developer Lounge' link...");
         sellDropdownPage.hoverOnSellTab();
         sellDropdownPage.clickDeveloperLoungeLink();
 
-        System.out.println("    ✦ [Step 2] Switching to Developer Lounge Brand Store tab...");
+        ConsoleLogger.logStep(2, "Switching to Developer Lounge Brand Store tab...");
         sellDropdownPage.switchToNewTab();
 
-        System.out.println("    ✦ [Step 3] Validating hero heading 'Discover Real Estate Brands'...");
+        ConsoleLogger.logStep(3, "Validating hero heading 'Discover Real Estate Brands'...");
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(driver.getCurrentUrl().contains("brand-store"),
                 "URL must belong to brand-store. Actual: " + driver.getCurrentUrl());
         softAssert.assertTrue(developerLoungePage.isHeroHeadingDisplayed(),
                 "'Discover Real Estate Brands' hero heading must be displayed");
 
-        System.out.println("    ✦ [Step 4] Highlighting developer brand cards & executive leadership profiles...");
+        ConsoleLogger.logStep(4, "Highlighting developer brand cards & executive leadership profiles...");
         developerLoungePage.highlightDeveloperBrandCards();
         softAssert.assertTrue(developerLoungePage.areDeveloperBrandsDisplayed(),
                 "Developer brand cards (Omaxe, VTP, SPR) must be displayed");
@@ -258,7 +259,7 @@ public class SellPageTest extends BaseTest {
     @Test(priority = 8, groups = {"sell", "regression"},
             description = "TC_SELL_008: Verify Contact Us page scroll down, element click, and scroll up flow")
     public void verifySalesEnquiryEmptySubmissionValidation() {
-        System.out.println("    ✦ [Step 1] Navigating to Contact Us / Sales Enquiry page from Sell dropdown...");
+        ConsoleLogger.logStep(1, "Navigating to Contact Us / Sales Enquiry page from Sell dropdown...");
         sellDropdownPage.hoverOnSellTab();
         sellDropdownPage.clickSalesEnquiryLink();
         sellDropdownPage.switchToNewTab();
@@ -268,15 +269,15 @@ public class SellPageTest extends BaseTest {
         softAssert.assertTrue(contactUsPage.isLoaded(),
                 "Must land on Contact/Sales Enquiry page. Actual: " + driver.getCurrentUrl());
 
-        System.out.println("    ✦ [Step 2] Smoothly scrolling down 800px into office directory section...");
+        ConsoleLogger.logStep(2, "Smoothly scrolling down 800px into office directory section...");
         contactUsPage.scrollDownToDirectory();
 
-        System.out.println("    ✦ [Step 3] Highlighting and selecting interactive directory element...");
+        ConsoleLogger.logStep(3, "Highlighting and selecting interactive directory element...");
         boolean selected = contactUsPage.selectDirectoryElement();
         softAssert.assertTrue(selected || driver.getCurrentUrl().contains("contact"),
                 "Interactive directory element should be selected and clicked");
 
-        System.out.println("    ✦ [Step 4] Smoothly scrolling back up to top and highlighting header...");
+        ConsoleLogger.logStep(4, "Smoothly scrolling back up to top and highlighting header...");
         contactUsPage.scrollBackToTopAndHighlightHeader();
 
         sellDropdownPage.closeCurrentTabAndSwitchBack();
