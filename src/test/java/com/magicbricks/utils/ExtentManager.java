@@ -21,7 +21,7 @@ public class ExtentManager {
     public static synchronized ExtentReports createExtentReports() {
         if (extent == null) {
             String timestamp = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date());
-            String reportFileName = "TestReport_HomeLogin_" + timestamp + ".html";
+            String reportFileName = "TestReport_HomeLoginSell_" + timestamp + ".html";
             File reportsDir = new File("reports");
             if (!reportsDir.exists()) {
                 reportsDir.mkdirs();
@@ -31,7 +31,7 @@ public class ExtentManager {
             ExtentSparkReporter sparkReporter = new ExtentSparkReporter(reportPath);
             sparkReporter.config().setTheme(Theme.STANDARD);
             sparkReporter.config().setDocumentTitle("MagicBricks Automation Report");
-            sparkReporter.config().setReportName("Home & Login Modules Execution");
+            sparkReporter.config().setReportName("Home, Login & Sell Modules Execution");
             sparkReporter.config().setTimeStampFormat("MMM dd, yyyy HH:mm:ss");
 
             extent = new ExtentReports();

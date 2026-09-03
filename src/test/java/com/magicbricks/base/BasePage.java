@@ -49,7 +49,7 @@ public class BasePage {
      * Paces UI interactions so the tester can visually observe each step
      * in the open Chrome browser. Controlled via action.delay in config.properties.
      */
-    protected void actionDelay() {
+    public void actionDelay() {
         int delay = ConfigReader.getActionDelay();
         if (delay > 0) {
             try {
@@ -64,7 +64,7 @@ public class BasePage {
      * Scrolls the target element into the center of the viewport smoothly
      * so that the tester can clearly observe the element being tested.
      */
-    protected void scrollToElement(WebElement element) {
+    public void scrollToElement(WebElement element) {
         try {
             JavascriptExecutor js = (JavascriptExecutor) driver;
             js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
@@ -72,9 +72,20 @@ public class BasePage {
     }
 
     /**
+     * Scrolls smoothly back to the top of the webpage so the tester can visually verify the header.
+     */
+    public void scrollToTop() {
+        try {
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("window.scrollTo({top: 0, behavior: 'smooth'});");
+            actionDelay();
+        } catch (Exception ignored) {}
+    }
+
+    /**
      * Briefly highlights an element with a distinct border to provide visual cues to the tester.
      */
-    protected void highlightElement(WebElement element) {
+    public void highlightElement(WebElement element) {
         if (ConfigReader.isHighlightEnabled()) {
             try {
                 JavascriptExecutor js = (JavascriptExecutor) driver;

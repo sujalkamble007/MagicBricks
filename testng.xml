@@ -43,4 +43,17 @@
         </classes>
     </test>
 
+    <test name="Sell Page Module Tests" preserve-order="true">
+        <groups>
+            <define name="all-sell">
+                <include name="sell" />
+                <include name="smoke" />
+                <include name="regression" />
+            </define>
+        </groups>
+        <classes>
+            <class name="com.magicbricks.tests.SellPageTest" />
+        </classes>
+    </test>
+
 </suite>

@@ -61,4 +61,15 @@ public class ConfigReader {
     public static String getTestDataExcelPath() {
         return getProperty("testdata.excel.path");
     }
+
+    // ==================== SELL MODULE CONFIG ====================
+
+    public static String getSellTestDataExcelPath() {
+        return getProperty("sell.testdata.excel.path");
+    }
+
+    public static String getSellSearchBaseUrl() {
+        return getProperty("sell.search.base.url");
+    }
 }
+
