@@ -89,6 +89,8 @@ public class ExtentReportListener implements ITestListener, ISuiteListener {
 
         ExtentTest test = extent.createTest(testName, description);
         test.assignCategory(result.getMethod().getGroups());
+        test.assignCategory("Browser: " + DriverManager.getBrowserName().toUpperCase());
+        test.assignDevice("Thread-" + Thread.currentThread().getId());
         testNode.set(test);
         testNode.get().log(Status.INFO, "Started execution of: " + testName);
 

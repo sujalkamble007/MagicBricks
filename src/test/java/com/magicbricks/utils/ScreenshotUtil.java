@@ -39,8 +39,8 @@ public class ScreenshotUtil {
         if (driver == null) {
             return "";
         }
-        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String destPath = "screenshots/" + testName + "_" + timestamp + ".png";
+        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss_SSS").format(new Date());
+        String destPath = "screenshots/" + testName + "_T" + Thread.currentThread().getId() + "_" + timestamp + ".png";
         File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         File destFile = new File(destPath);
         try {

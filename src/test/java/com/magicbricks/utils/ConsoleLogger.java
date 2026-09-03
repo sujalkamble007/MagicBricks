@@ -2,7 +2,10 @@ package com.magicbricks.utils;
 
 /**
  * Utility for formatting terminal test logs with clean ================= separators,
- * bold ANSI colors, prominent Test Case Number + Name, and numbered step breadcrumbs.
+ * bold ANSI colors, prominent Test Case Number + Name, thread/browser tags,
+ * and numbered step breadcrumbs.
+ *
+ * Fully synchronized for parallel thread-safety across concurrent workers.
  */
 public class ConsoleLogger {
 
@@ -31,42 +34,53 @@ public class ConsoleLogger {
 
     /**
      * Prints a clean, prominent ================= header before each test starts.
+     * Synchronized to prevent terminal block interleaving during parallel execution.
      */
-    public static void logTestStart(String testName, String description, String module, String groups) {
+    public static synchronized void logTestStart(String testName, String description, String module, String groups) {
         String tcId = extractTestCaseId(description);
         String displayName = (tcId != null ? tcId + " : " : "") + testName;
+        String threadInfo = "T-" + Thread.currentThread().getId();
+        String browser = DriverManager.getBrowserName();
 
         System.out.println("\n" + CYAN_BOLD + DOUBLE_BAR);
         System.out.println("TEST CASE   : " + displayName);
         if (description != null && !description.isEmpty()) {
             System.out.println("DESCRIPTION : " + description);
         }
-        System.out.println("MODULE      : " + module + " | GROUPS: " + groups);
+        System.out.println("MODULE      : " + module + " | BROWSER: " + browser.toUpperCase() + " | THREAD: " + threadInfo + " | GROUPS: " + groups);
         System.out.println(DOUBLE_BAR + RESET);
     }
 
     /**
-     * Prints a colorful, numbered step breadcrumb.
+     * Prints a colorful, numbered step breadcrumb tagged with thread and browser.
      */
     public static void logStep(int stepNumber, String actionDescription) {
-        System.out.println(YELLOW_BOLD + "  [STEP " + stepNumber + "] " + RESET + WHITE + actionDescription + RESET);
+        String threadInfo = "T-" + Thread.currentThread().getId();
+        String browser = DriverManager.getBrowserName();
+        System.out.println(YELLOW_BOLD + "  [" + threadInfo + "|" + browser + "] [STEP " + stepNumber + "] " + RESET + WHITE + actionDescription + RESET);
     }
 
     /**
      * Prints a green completion status banner with duration.
+     * Synchronized for clean display during parallel runs.
      */
-    public static void logSuccess(String testName, double durationSec) {
+    public static synchronized void logSuccess(String testName, double durationSec) {
+        String threadInfo = "T-" + Thread.currentThread().getId();
+        String browser = DriverManager.getBrowserName();
         System.out.println(GREEN_BOLD + SINGLE_BAR);
-        System.out.printf("✔ STATUS: [PASSED] - %s (%.2fs)%n", testName, durationSec);
+        System.out.printf("✔ STATUS: [PASSED] - [%s|%s] %s (%.2fs)%n", threadInfo, browser, testName, durationSec);
         System.out.println(SINGLE_BAR + RESET + "\n");
     }
 
     /**
      * Prints a red failure banner with cause and duration.
+     * Synchronized for clean display during parallel runs.
      */
-    public static void logFailure(String testName, String errorMsg, double durationSec) {
+    public static synchronized void logFailure(String testName, String errorMsg, double durationSec) {
+        String threadInfo = "T-" + Thread.currentThread().getId();
+        String browser = DriverManager.getBrowserName();
         System.out.println(RED_BOLD + SINGLE_BAR);
-        System.out.printf("✖ STATUS: [FAILED] - %s (%.2fs)%n", testName, durationSec);
+        System.out.printf("✖ STATUS: [FAILED] - [%s|%s] %s (%.2fs)%n", threadInfo, browser, testName, durationSec);
         if (errorMsg != null && !errorMsg.isEmpty()) {
             System.out.println("  ERROR: " + errorMsg);
         }
@@ -76,16 +90,18 @@ public class ConsoleLogger {
     /**
      * Prints a yellow skipped banner.
      */
-    public static void logSkipped(String testName) {
+    public static synchronized void logSkipped(String testName) {
+        String threadInfo = "T-" + Thread.currentThread().getId();
+        String browser = DriverManager.getBrowserName();
         System.out.println(YELLOW_BOLD + SINGLE_BAR);
-        System.out.printf("⚠ STATUS: [SKIPPED] - %s%n", testName);
+        System.out.printf("⚠ STATUS: [SKIPPED] - [%s|%s] %s%n", threadInfo, browser, testName);
         System.out.println(SINGLE_BAR + RESET + "\n");
     }
 
     /**
      * Prints the module completion block with the generated report path.
      */
-    public static void logReportGenerated(String moduleName, String reportPath) {
+    public static synchronized void logReportGenerated(String moduleName, String reportPath) {
         System.out.println(CYAN_BOLD + DOUBLE_BAR);
         System.out.println("✔ " + moduleName + " Module Execution Finished.");
         System.out.println("  ExtentReport generated at: " + reportPath);

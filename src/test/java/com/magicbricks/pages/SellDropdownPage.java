@@ -104,14 +104,21 @@ public class SellDropdownPage extends BasePage {
     public void hoverOnSellTab() {
         try {
             prepareElement(sellTabLink);
-            new Actions(driver).moveToElement(sellTabLink).perform();
+            new Actions(driver).moveToElement(sellTabLink).pause(java.time.Duration.ofMillis(300)).perform();
             actionDelay();
+            if (!isSellDropdownDisplayed()) {
+                ((JavascriptExecutor) driver).executeScript(
+                        "var evt = new MouseEvent('mouseover', {bubbles: true}); arguments[0].dispatchEvent(evt);",
+                        sellTabLink);
+                actionDelay();
+            }
         } catch (Exception e) {
-            // Fallback: trigger hover via JavaScript mouseover event
-            ((JavascriptExecutor) driver).executeScript(
-                    "var evt = new MouseEvent('mouseover', {bubbles: true}); arguments[0].dispatchEvent(evt);",
-                    sellTabLink);
-            actionDelay();
+            try {
+                ((JavascriptExecutor) driver).executeScript(
+                        "var evt = new MouseEvent('mouseover', {bubbles: true}); arguments[0].dispatchEvent(evt);",
+                        sellTabLink);
+                actionDelay();
+            } catch (Exception ignored) {}
         }
     }
 

@@ -149,6 +149,32 @@
 				<suiteXmlFile>testng-sell.xml</suiteXmlFile>
 			</properties>
 		</profile>
+
+		<!-- Profile: Parallel Execution -->
+		<profile>
+			<id>parallel</id>
+			<activation>
+				<property>
+					<name>parallel</name>
+				</property>
+			</activation>
+			<properties>
+				<suiteXmlFile>testng-parallel.xml</suiteXmlFile>
+			</properties>
+		</profile>
+
+		<!-- Profile: Cross-Browser Execution -->
+		<profile>
+			<id>crossbrowser</id>
+			<activation>
+				<property>
+					<name>crossbrowser</name>
+				</property>
+			</activation>
+			<properties>
+				<suiteXmlFile>testng-crossbrowser.xml</suiteXmlFile>
+			</properties>
+		</profile>
 	</profiles>
 
 </project>

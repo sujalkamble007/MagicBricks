@@ -42,6 +42,11 @@ public class ConfigReader {
         return getProperty("browser");
     }
 
+    public static boolean isHeadless() {
+        String headless = properties.getProperty("headless");
+        return headless != null && Boolean.parseBoolean(headless.trim());
+    }
+
     public static int getImplicitWait() {
         return Integer.parseInt(getProperty("implicit.wait"));
     }
